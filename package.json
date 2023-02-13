@@ -1,0 +1,43 @@
+{
+  "name": "qlik",
+  "version": "1.0.5",
+  "description": "A collection of helpful utilities for using the Qlik Capability APIs",
+  "main": "./lib/index.js",
+  "types": "./lib/types.d.ts",
+  "scripts": {
+    "dev": "nodemon",
+    "build": "tsc",
+    "lint": "eslint --ignore-path .gitignore --ext .ts src/",
+    "lint:fix": "npm run lint -- --fix",
+    "start": "npm run build && node lib/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ranvithm/qlik.git"
+  },
+  "keywords": [
+    "qlik",
+    "sense",
+    "qliksense",
+    "capability api",
+    "ts"
+  ],
+  "author": "Ranjithkumar M",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ranvithm/qlik/issues"
+  },
+  "homepage": "https://github.com/ranvithm/qlik.git",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.51.0",
+    "@typescript-eslint/parser": "^5.51.0",
+    "eslint": "^8.33.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "nodemon": "^2.0.20",
+    "prettier": "^2.8.4",
+    "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.1.2",
+    "typescript": "^4.9.5"
+  }
+}
