@@ -1,9 +1,9 @@
 {
   "name": "qlik",
-  "version": "1.0.7",
+  "version": "2.0.0",
   "description": "A collection of helpful utilities for using the Qlik Capability APIs",
   "main": "./lib/index.js",
-  "types": "./lib/types.d.ts",
+  "types": "./lib/index.d.ts",
   "scripts": {
     "dev": "nodemon",
     "build": "tsc",
@@ -20,6 +20,7 @@
     "sense",
     "qliksense",
     "capability api",
+    "typescript",
     "ts"
   ],
   "author": "Ranjithkumar M",
