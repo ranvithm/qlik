@@ -1,2 +1,5 @@
-src
-example
+/src
+/example
+rollup.config.js
+.gitignore
+.npmignore
