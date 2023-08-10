@@ -1,5 +1,3 @@
-import { EventEmitter } from 'node:events';
-
 interface Size {
     qcx: number;
     qcy: number;
@@ -432,10 +430,7 @@ declare class Qlik {
     user: IUser;
     docList: App[];
     currApps: any[];
-    emitter: EventEmitter;
     constructor(config: GetAppConfig);
-    on(eventName: string, fn: (...args: any[]) => void): void;
-    emit(eventName: string, params: string): void;
     callRequire(): Promise<unknown>;
     setQlik(): Promise<unknown>;
     setAuthUser(): Promise<unknown>;

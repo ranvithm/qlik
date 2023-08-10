@@ -1,19 +1,15 @@
 # qlik
 
-This package to be wrapper the qlik API with web application. This utils handle the qlik connection, loading the require and and get the basic qlik methods.And using this utils we can connect the qlik sense multiple app, And access the qlik sense api also. [API reference](https://help.qlik.com/en-US/sense-developer/August2022/Subsystems/APIs/Content/Sense_ClientAPIs/capability-apis-reference.htm)
+This package will serve as a web application's wrapper for the Qlik API. The utilities in the package simplify connecting to Qlik, load necessary dependencies, and give users access to fundamental Qlik methods. Developers can connect to many Qlik Sense applications and communicate with the Qlik Sense API by utilizing these utilities. [Qlik helper for more details & other API's](https://help.qlik.com/en-US/sense-developer/August2022/Subsystems/APIs/Content/Sense_ClientAPIs/capability-apis-reference.htm)
 
-A working example of the react project can be seen at https://github.com/ranvithm/qlik/example/react-qlik/
+## Table of Contents
 
-This typescript project was generated with [create vite react](https://vitejs.dev/guide/) version 18.2.0
-
-<!-- ###### Qlik Classes
-- [Global](docs/Global.md)
-- [Doc](docs/Doc.md)
-- [Bookmark](docs/Bookmark.md)
-- [Field](docs/Field.md)
-- [GenericDimension](docs/GenericDimension.md)
-- [GenericMeasure](docs/GenericMeasure.md) -->
-
+- [Qlik](#qlik)
+    - [Installation](#installation)
+    - [Quick Start](#quick-start)
+    - [Contributing](#contributing)
+    - [License](#license)
+    - [Contact](#contact)
 ## Installation
 
 To install this library, run:
@@ -22,7 +18,7 @@ To install this library, run:
 $ npm install qlik -save
 ```
 
-## Example
+## Quick Start
 
 ```bash
 $ npm install qlik
@@ -95,19 +91,6 @@ const App: React.FC = () => {
 
 export default App;
 ```
-
-## Development Progress
-
-- [x] Dynamic Load require
-- [x] Global API
-- [x] Get App list
-- [x] App API
-- [x] Bookmark Methods
-- [x] Dimension Methods
-- [x] Evaluate expression Methods
-- [x] Measure Methods
-- [x] Field Methods
-- [x] Variable Methods
 
 ## Contribution
 
