@@ -1,6 +1,6 @@
 {
   "name": "qlik",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "A collection of helpful utilities for using the Qlik Capability APIs",
   "type": "module",
   "main": "lib/index.js",

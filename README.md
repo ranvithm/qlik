@@ -35,7 +35,7 @@ const qlik = new Qlik({
  port: 80,
  prefix: '/ticket/',
  isSecure: false,
- ticket: 'qlikTicket=9byYoKhTnv9PP8aq', // optional
+ ticket: 'qlikTicket=xxxxx', // optional
 });
 
 qlik

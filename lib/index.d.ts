@@ -399,6 +399,8 @@ interface GetAppConfig {
     openWithoutData?: boolean | undefined;
     identity?: string | undefined;
     ticket?: string;
+    isSaaS?: boolean;
+    webIntegrationId?: string;
 }
 interface GetGlobalConfig {
     host: string;
@@ -427,12 +429,17 @@ declare class Qlik {
     config: GetAppConfig;
     qlik: IQlik;
     baseUrl: string;
+    saasURL: string;
     user: IUser;
     docList: App[];
     currApps: any[];
+    ticket: string | undefined;
+    isSaaS: boolean;
+    webIntegrationId: string;
     constructor(config: GetAppConfig);
     callRequire(): Promise<unknown>;
     setQlik(): Promise<unknown>;
+    fetchAPI(url: any, method?: string, payload?: any): Promise<any>;
     setAuthUser(): Promise<unknown>;
     getDocs(): Promise<unknown>;
     getList(app: App, type: ListTypes): Promise<unknown>;
