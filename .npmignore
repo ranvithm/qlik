@@ -1,5 +1,6 @@
 /src
 /example
 rollup.config.js
+tsconfig.json
 .gitignore
 .npmignore

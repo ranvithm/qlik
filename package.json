@@ -1,6 +1,6 @@
 {
   "name": "qlik",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "description": "A collection of helpful utilities for using the Qlik Capability APIs",
   "type": "module",
   "main": "lib/index.js",
@@ -35,8 +35,5 @@
   "bugs": {
     "url": "https://github.com/ranvithm/qlik/issues"
   },
-  "homepage": "https://github.com/ranvithm/qlik.git",
-  "devDependencies": {
-    "@types/node": "^20.4.2"
-  }
+  "homepage": "https://github.com/ranvithm/qlik.git"
 }
