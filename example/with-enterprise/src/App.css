@@ -1,0 +1,49 @@
+h1.loading {
+  font-size: 3em;
+  font-weight: 700;
+}
+
+.visualization {
+  background-color: #131314;
+  height: 45%;
+  width: 50%;
+  box-sizing: border-box;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.visualization {
+  header {
+    display: none !important;
+  }
+  .header {
+    flex: 0 0 45px;
+    font-weight: 600;
+    font-size: large;
+    color: #fff;
+    padding: 0 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .icons {
+      cursor: pointer;
+      height: 30px;
+      width: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      &:hover {
+        background-color: #3498db;
+      }
+    }
+  }
+  .qv-object {
+    background-color: #fff;
+    flex: 1;
+    border-radius: 5px;
+  }
+}

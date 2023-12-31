@@ -1,0 +1,27 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,700);
+html,
+body,
+#root,
+.wrapper {
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  font-family: "Roboto", sans-serif;
+}
+.wrapper {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading-text {
+  background: #3498db;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
