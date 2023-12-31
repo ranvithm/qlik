@@ -1,27 +1,39 @@
-# React + TypeScript + Vite
+# React with Qlik Enterprise
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This sample project demonstrates the integration of React with Qlik Enterprise, enabling developers to seamlessly incorporate Qlik Enterprise capabilities into React-based web applications.
 
-Currently, two official plugins are available:
+## Installation
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+To explore the Enterprise project, follow these steps:
 
-## Expanding the ESLint configuration
+1. Clone this repository:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+    ```bash
+    $ git clone https://github.com/ranvithm/qlik.git
+    ```
 
-- Configure the top-level `parserOptions` property like this:
+2. Install dependencies:
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+    Navigate into the project directory:
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+    ```bash
+    $ cd qlik/example/with-enterprise
+    $ npm install
+    ```
+
+3. Update configuration:
+
+    - Rename the `.env.sample` file to `.env`.
+    - Update all the input fields in the `.env` file with the required configuration for your Qlik Enterprise integration.
+
+## Start Developing
+
+To begin developing with the Qlik Enterprise integration:
+
+- Run the development server:
+
+    ```bash
+    $ npm run dev
+    ```
+
+You're now ready to start building your web application integrated with Qlik Enterprise.
