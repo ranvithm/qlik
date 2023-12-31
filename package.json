@@ -1,6 +1,6 @@
 {
   "name": "qlik",
-  "version": "2.0.6",
+  "version": "3.0.0",
   "description": "A collection of helpful utilities for using the Qlik Capability APIs",
   "type": "module",
   "main": "lib/index.js",
@@ -21,6 +21,7 @@
     "qlik",
     "sense",
     "qliksense",
+    "qlik cloud",
     "capability api",
     "typescript",
     "ts",

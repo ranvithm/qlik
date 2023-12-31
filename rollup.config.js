@@ -31,7 +31,7 @@ export default [
       commonjs(),
       uglify(),
       typescript({
-        declaration: false,
+        tsconfig: "./qlik/tsconfig.json",
       }),
     ],
   },

@@ -375,7 +375,10 @@ interface App {
     forward(): Promise<any>;
     getAppLayout(callback: (layout: Layout) => void): Promise<any>;
     getFullPropertyTree(id: string): Promise<any>;
-    getList(type: ListTypes, callback: any): Promise<any>;
+    getList(type: ListTypes, callback: {
+        (reply: any): void;
+        (reply: any): void;
+    }): Promise<any>;
     destroySessionObject(id: string): Promise<any>;
     getobject(elem?: HTMLElement | string, id?: string | "CurrentSelections", options?: {
         noInteraction?: boolean | undefined;
@@ -439,8 +442,15 @@ declare class Qlik {
     constructor(config: GetAppConfig);
     callRequire(): Promise<unknown>;
     setQlik(): Promise<unknown>;
-    fetchAPI(url: any, method?: string, payload?: any): Promise<any>;
+    fetchAPI(url: RequestInfo | URL, method?: string, payload?: null): Promise<any>;
+    authenticateToQlik(): Promise<void>;
     setAuthUser(): Promise<unknown>;
+    getMoreData(response: any, data: any[]): Promise<any>;
+    getSpace(id: string): Promise<any>;
+    getSpaceList(): Promise<any>;
+    getUserList(): Promise<any>;
+    getAppList(): Promise<any>;
+    getThemeList(): Promise<any>;
     getDocs(): Promise<unknown>;
     getList(app: App, type: ListTypes): Promise<unknown>;
     getMeasure: (app: App) => Promise<any>;
@@ -468,7 +478,7 @@ declare class Qlik {
     callObject: (app: App, id: string) => Promise<unknown>;
     checkAppOpen: (app: App) => Promise<App>;
     isAppOpen: (id: string) => Promise<App>;
-    getApp(id: string): Promise<any[]>;
+    getApp(id: string): Promise<any[] | undefined>;
 }
 
 export { Qlik as default };

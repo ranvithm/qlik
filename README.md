@@ -1,43 +1,58 @@
 # qlik
 
-This package will serve as a web application's wrapper for the Qlik API. The utilities in the package simplify connecting to Qlik, load necessary dependencies, and give users access to fundamental Qlik methods. Developers can connect to many Qlik Sense applications and communicate with the Qlik Sense API by utilizing these utilities. [Qlik helper for more details & other API's](https://help.qlik.com/en-US/sense-developer/August2022/Subsystems/APIs/Content/Sense_ClientAPIs/capability-apis-reference.htm)
+This module facilitates easy integration between Qlik Sense Enterprise/Cloud and web applications by leveraging the Qlik Capability API. Developers can seamlessly connect to multiple Qlik Sense applications and interact with the Qlik Sense API using the utilities provided in this package. [Qlik helper for more details & other API's](https://help.qlik.com/en-US/sense-developer/August2022/Subsystems/APIs/Content/Sense_ClientAPIs/capability-apis-reference.htm)
+
+This module provides a set of utilities to streamline the interaction between your web applications and the Qlik Sense API.
 
 ## Table of Contents
 
 - [Qlik](#qlik)
+    - [Features](#features)
     - [Installation](#installation)
-    - [Quick Start](#quick-start)
+    - [Usage](#usage)
+        - [Getting Started](#getting-started)
+        - [Configuration Options](#configuration-options)
+        - [Example](#example)
     - [Contributing](#contributing)
     - [License](#license)
     - [Contact](#contact)
+
+## Features
+
+- Simplifies connection to Qlik Sense environments
+- Facilitates communication with multiple Qlik Sense applications
+- Interacts with various Qlik Sense API endpoints
+- Enhances development experience with Qlik Sense integrations
+
 ## Installation
 
-To install this library, run:
+To install the Qlik Capability API Wrapper, use npm:
 
 ```bash
 $ npm install qlik -save
 ```
 
-## Quick Start
-
-```bash
-$ npm install qlik
-```
-
-and then from your Angular `App.ts`:
+## Usage
+### Getting Started
+To utilize this package, provide the basic information required for connecting to the Qlik Sense environment:
 
 ```typescript
 import Qlik from 'qlik';
 
 // Define your connection to Qlik Sense Server and call the basic methods.
-const qlik = new Qlik({
- host: 'localhost',
- port: 80,
- prefix: '/ticket/',
- isSecure: false,
- ticket: 'qlikTicket=xxxxx', // optional
-});
 
+const qlikConfig = {
+  host: 'localhost',
+  port: 80,
+  prefix: '/ticket/',
+  isSecure: false,
+  ticket: 'qlikTicket=****', // Optional, for dynamic ticket-based authentication
+  webIntegrationId: '****',   // Optional, for cloud integration
+};
+
+const qlik = new Qlik(qlikConfig);
+
+// For Qlik sense Enterprise
 qlik
  .callRequire()
  .then(async (q) => {
@@ -47,9 +62,29 @@ qlik
  .catch((err) => {
   console.log(err);
  });
-```
 
-Once the library is imported, you can use its components in you application:
+// For Qlik sense cloud
+  qlik
+      .callRequire()
+      .then(async (q) => {
+        await qlik.setQlik();
+        await qlik.authenticateToQlik();
+        await qlik.setAuthUser();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+```
+### Configuration Options
+- host: The hostname of the Qlik Sense server.
+- port: The port number for communication.
+- prefix: The prefix for the Qlik Sense API URL.
+- isSecure: Boolean indicating whether the connection is secure (HTTPS).
+- ticket: (Optional) Qlik dynamic ticket-based authentication. Must be authenticate with particular virtual proxy, when you're not passing.
+- webIntegrationId: (Optional) ID for  qlik sense cloud integration
+
+### Example
+sample module for react with qlik enterprise.
 
 ```typescript
 import React, { useState } from 'react';
