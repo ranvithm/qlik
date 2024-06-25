@@ -9,16 +9,13 @@ This module provides a set of utilities to streamline the interaction between yo
 - [Qlik](#qlik)
   - [Features](#features)
   - [Installation](#installation)
+  - [Configuration](#configuration)
   - [Usage](#usage)
-    - [Getting Started](#getting-started)
-    - [Configuration Options](#configuration-options)
-    - [Functions](#functions)
+  - [Advanced Usage](#advanced-usage)
+  - [API Documentation](#api-documentation)
   - [Example](#example)
-    - [Enterprise](#enterprise)
-    - [Cloud](#cloud)
   - [Contributing](#contributing)
   - [License](#license)
-  - [Contact](#contact)
 
 ## Features
 
@@ -32,60 +29,254 @@ This module provides a set of utilities to streamline the interaction between yo
 To install the Qlik Capability API Wrapper, use npm:
 
 ```bash
-$ npm install qlik --save
+$ npm install qlik
+```
+
+```bash
+$ yarn add qlik
+```
+
+## Configuration
+
+Create a configuration object with the following properties:
+
+- host (string): The hostname of your Qlik Sense instance.
+- port (string | number): The port number to connect to Qlik Sense.
+- prefix (string): The prefix for the Qlik Sense resources (default: /).
+- isSecure (boolean): Whether to use HTTPS (default: true).
+- ticket (string, optional): Ticket for authentication.
+- webIntegrationId (string, optional): Web integration ID for Qlik Sense SaaS.
+
+### Example configuration:
+
+```ts
+const config = {
+  host: "your-qlik-sense-host",
+  port: 443,
+  prefix: "/",
+  isSecure: true,
+  ticket: "your-ticket",
+  webIntegrationId: "your-web-integration-id",
+};
 ```
 
 ## Usage
 
-### Getting Started
+### Initialization
 
-To utilize this package, provide the basic information required for connecting to the Qlik Sense environment:
+Import and initialize the Qlik module with your configuration:
 
-Import module
-
-```typescript
+```ts
 import Qlik from "qlik";
+
+const qlik = new Qlik(config);
 ```
 
-Define your connection to Qlik Sense Server and call the basic methods.
+### Authentication
 
-```typescript
-const qlikConfig = {
-  host: "localhost",
-  port: 80,
-  prefix: "/ticket/",
-  isSecure: false,
-  ticket: "qlikTicket=****", // Optional, for dynamic pass the ticket
-  webIntegrationId: "****", // For cloud integration
-};
+Authenticate to Qlik Sense:
 
-const qlik = new Qlik(qlikConfig);
+```ts
+qlik
+  .authenticateToQlik()
+  .then(() => console.log("Authenticated to Qlik Sense"))
+  .catch((error) => console.error("Authentication failed", error));
 ```
 
-### Configuration Options
+### Fetch User Information
 
-- host: The hostname of the Qlik Sense server.
-- port: The port number for communication.
-- prefix: The prefix for the Qlik Sense API URL.
-- isSecure: Boolean indicating whether the connection is secure (HTTPS).
-- ticket: (Optional) Qlik dynamic ticket-based authentication. Must be authenticate with particular virtual proxy, when you're not passing.
-- webIntegrationId: (Optional) ID for qlik sense cloud integration
+Fetch authenticated user information:
 
-## Functions
-This module includes the following functions:
+```ts
+qlik
+  .setAuthUser()
+  .then(() => {
+    console.log("User information set", qlik.user);
+  })
+  .catch((error) => console.error("Failed to fetch user information", error));
+```
 
-#### callRequire:
-- Loads the requirejs and qlik-style.css dynamically based on config.
-#### setQlik:
-- Sets the instance of Qlik once the requirements are loaded.
-#### authenticateToQlik:
-- Supports authentication for cloud.
-#### setAuthUser:
-- Retrieves the authenticated user of the current application.
-#### getSpaceList, getUserList, getAppList, getThemeList:
-- Functions supporting cloud for retrieving lists of spaces, users, apps, and themes respectively.
-#### getDocs, getList, getMeasure, getVariable, getFields, getBookmark, getQlikObjectTitles, getSheet, callObject, getApp: 
-- Functions supporting enterprise and cloud for retrieving various Qlik objects and data.
+### Fetch Data
+
+Get List of Spaces:
+
+```ts
+qlik
+  .getSpaceList()
+  .then((spaces) => console.log("Spaces:", spaces))
+  .catch((error) => console.error("Failed to fetch spaces", error));
+```
+
+Get List of Users:
+
+```ts
+qlik
+  .getUserList()
+  .then((users) => console.log("Users:", users))
+  .catch((error) => console.error("Failed to fetch users", error));
+```
+
+Get List of Apps:
+
+```ts
+qlik
+  .getAppList()
+  .then((apps) => console.log("Apps:", apps))
+  .catch((error) => console.error("Failed to fetch apps", error));
+```
+
+Get List of Themes:
+
+```ts
+qlik
+  .getThemeList()
+  .then((themes) => console.log("Themes:", themes))
+  .catch((error) => console.error("Failed to fetch themes", error));
+```
+
+## Advanced Usage
+
+### Open an App and Fetch Data
+
+```ts
+async function fetchAppData(appId: string) {
+  try {
+    const app = await qlik.isAppOpen(appId);
+    const sheets = await qlik.getSheet(app);
+    const measures = await qlik.getMeasure(app);
+    const fields = await qlik.getFields(app);
+    const variables = await qlik.getVariable(app);
+    const bookmarks = await qlik.getBookmark(app);
+
+    console.log("Sheets:", sheets);
+    console.log("Measures:", measures);
+    console.log("Fields:", fields);
+    console.log("Variables:", variables);
+    console.log("Bookmarks:", bookmarks);
+  } catch (error) {
+    console.error("Failed to fetch app data", error);
+  }
+}
+
+fetchAppData("your-app-id");
+```
+
+## API Documentation
+
+### Qlik Class
+
+Constructor
+
+```ts
+new Qlik(config: IConfig)
+```
+
+- `config`: Configuration object.
+
+### Methods
+
+#### Authenticate to Qlik Sense.
+
+`authenticateToQlik(): Promise<void>`
+
+#### Set authenticated user information.
+
+`setAuthUser(): Promise<void>`
+
+#### Fetch data from Qlik Sense API.
+
+`fetchAPI(url: string, method: string = 'GET', payload: any = null): Promise<any>`
+
+- `url`: API endpoint.
+
+- `method`: HTTP method (default: 'GET').
+
+- `payload`: Request payload.
+
+#### Fetch a specific space by ID.
+
+`getSpace(id: string): Promise<any>`
+
+`id`: Space ID.
+
+#### Fetch the list of spaces.
+
+`getSpaceList(): Promise<any[]>`
+
+#### Fetch the list of users.
+
+`getUserList(): Promise<any[]>`
+
+#### Fetch the list of apps.
+
+`getAppList(): Promise<any[]>`
+
+#### Fetch the list of themes.
+
+`getThemeList(): Promise<any[]>`
+
+#### Fetch the list of documents.
+
+`getDocs(): Promise<IApp[]>`
+
+#### Fetch a list of objects from an app.
+
+`getList(app: IApp, type: ListTypes): Promise<any>`
+
+- `app`: Qlik app instance.
+- `type`: Type of objects to fetch.
+
+#### Fetch measures from an app.
+
+`getMeasure(app: IApp): Promise<any>`
+
+#### Fetch variables from an app.
+
+- `app`: Qlik app instance.
+- `getVariable(app: IApp): Promise<any>`
+
+#### Fetch fields from an app.
+
+- app: Qlik app instance.
+- getFields(app: IApp): Promise<any>
+
+#### Fetch bookmarks from an app.
+
+- `app`: Qlik app instance.
+- `getBookmark(app: IApp): Promise<any>`
+
+#### Evaluate an expression in an app.
+
+- `app`: Qlik app instance.
+- `evaluateExpression(app: IApp, title: any): Promise<any>`
+
+#### Fetch properties of an object in an app.
+
+- `app`: Qlik app instance.
+- `title`: Expression to evaluate.
+- `objectProper(app: IApp, model: any): Promise<any>`
+
+#### Fetch titles of an object in an app.
+
+- `app`: Qlik app instance.
+- `model`: Object model.
+- `getQlikObjectTitles(app: IApp, id: string): Promise<any>`
+
+#### Fetch sheets from an app.
+
+- `app`: Qlik app instance.
+- `id`: Object ID.
+- `getSheet(app: IApp): Promise<any>`
+
+#### Fetch a specific object from an app.
+
+- `app`: Qlik app instance.
+- `callObject(app: IApp, id: string): Promise<any>`
+
+#### Fetch data from an app.
+
+- `id`: App ID.
+- `getApp(id: string): Promise<any[]>`
 
 ## Example
 

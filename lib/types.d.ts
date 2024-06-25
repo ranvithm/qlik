@@ -48,10 +48,10 @@ export interface NxGroupTail {
 export interface Rect {
     qLeft: number;
     qTop: number;
-    qWdith: number;
+    qWidth: number;
     qHeight: number;
 }
-export interface NxPivotDimensioncell {
+export interface NxPivotDimensionCell {
     qText: string;
     qElemNo: number;
     qValue: number;
@@ -60,20 +60,20 @@ export interface NxPivotDimensioncell {
     qType: "V" | "E" | "N" | "T" | "P" | "R" | "U";
     qUp: number;
     qDown: number;
-    qSubNodes: NxPivotDimensioncell[];
+    qSubNodes: NxPivotDimensionCell[];
     qAttrExps: NxAttributeExpressionValues[];
     qAttrDims: NxAttributeDimValues[];
 }
 export interface NxPivotValuePoint {
-    qLabel?: string | undefined;
+    qLabel?: string;
     qText: string;
     qNum: number;
     qType: "V" | "E" | "N" | "T" | "P" | "R" | "U";
     qAttrExps: NxAttributeExpressionValues;
 }
 export interface NxPivotPage {
-    qLeft: NxPivotDimensioncell[];
-    qTop: NxPivotDimensioncell[];
+    qLeft: NxPivotDimensionCell[];
+    qTop: NxPivotDimensionCell[];
     qData: NxPivotValuePoint[];
     qArea: Rect;
 }
@@ -91,7 +91,7 @@ export interface NxStackedPivotCell {
     qRow: number;
     qSubNodes: NxStackedPivotCell[];
     qAttrExps: NxAttributeExpressionValues;
-    qAttrDims: NxAttributeDimValues;
+    qAttrDims: NxAttributeDimValues[];
 }
 export interface NxStackPage {
     qData: NxStackedPivotCell[];
@@ -194,11 +194,11 @@ export interface NxInfo {
 }
 export interface NxCurrentSelectionItem {
     qTotal: number;
-    qIsNum?: boolean | undefined;
+    qIsNum?: boolean;
     qField: string;
-    qLocked?: boolean | undefined;
-    qOneAndOnlyOne?: boolean | undefined;
-    qTextSearch?: string | undefined;
+    qLocked?: boolean;
+    qOneAndOnlyOne?: boolean;
+    qTextSearch?: string;
     qSelectedCount: number;
     qSelected: string;
     qRangeInfo: RangeSelectInfo[];
@@ -217,7 +217,7 @@ export interface NxFieldSelectionInfo {
     qName: string;
     qFieldSelectionmode: "NORMAL" | "AND" | "NOT";
 }
-export interface Selectionobject {
+export interface SelectionObject {
     qBackCount: number;
     qForwardCount: number;
     qSelections: NxCurrentSelectionItem[];
@@ -225,7 +225,7 @@ export interface Selectionobject {
 export interface Layout {
     qHyperCube: HyperCube;
     qInfo: NxInfo;
-    qSelectionInfo: Selectionobject;
+    qSelectionInfo: SelectionObject;
 }
 export interface ValueExpr {
     qv: string;
@@ -295,37 +295,37 @@ export interface NxInlineMeasureDef {
     qcy: number;
 }
 export interface NxPage {
-    qLeft?: number | undefined;
-    qTop?: number | undefined;
-    qWidth?: number | undefined;
-    qHeight?: number | undefined;
+    qLeft?: number;
+    qTop?: number;
+    qWidth?: number;
+    qHeight?: number;
 }
 export interface HyperCubeDef {
-    qStateName?: string | undefined;
-    qDimensions?: NxDimension[] | undefined;
-    qMeasures?: NxMeasure[] | undefined;
-    qInterColumnSortOrder?: number[] | undefined;
-    qSuppressZero?: boolean | undefined;
-    qSupressMissing?: boolean | undefined;
-    qInitialDataFetch?: NxPage[] | undefined;
-    qMode?: "S" | "P" | "K" | undefined;
-    qNoOfLeftDims?: number | undefined;
-    qAlwaysFullyExpanded?: boolean | undefined;
-    qMaxStackedCells?: number | undefined;
-    qPopulateMissing?: boolean | undefined;
-    qShowTotalsAbove?: boolean | undefined;
-    qIndentMode?: boolean | undefined;
-    qCalcCond?: ValueExpr | undefined;
-    qSortByYValue?: -1 | 0 | 1 | undefined;
+    qStateName?: string;
+    qDimensions?: NxDimension[];
+    qMeasures?: NxMeasure[];
+    qInterColumnSortOrder?: number[];
+    qSuppressZero?: boolean;
+    qSupressMissing?: boolean;
+    qInitialDataFetch?: NxPage[];
+    qMode?: "S" | "P" | "K";
+    qNoOfLeftDims?: number;
+    qAlwaysFullyExpanded?: boolean;
+    qMaxStackedCells?: number;
+    qPopulateMissing?: boolean;
+    qShowTotalsAbove?: boolean;
+    qIndentMode?: boolean;
+    qCalcCond?: ValueExpr;
+    qSortByYValue?: -1 | 0 | 1;
 }
 export interface NxAutoSortByStateDef {
     qDisplayNumberOfRows: number;
 }
-export interface NxListobjectExpressionDef {
+export interface NxListObjectExpressionDef {
     qExpr: string;
     qLibraryId: string;
 }
-export interface ListobjectDef {
+export interface ListObjectDef {
     qStateName: string;
     qLibraryId: string;
     qDef: NxInlineDimensionDef;
@@ -333,17 +333,17 @@ export interface ListobjectDef {
     qFrequencyMode: "NX_FREQUENCY_NONE" | "NX_FREQUENCY_VALUE" | "NX_FREQUENCY_PERCENT" | "NX_FREQUENCY_RELATIVE";
     qShowAlternatives: boolean;
     qInitialDataFetch: NxPage[];
-    qExpressions: NxListobjectExpressionDef[];
+    qExpressions: NxListObjectExpressionDef[];
 }
 export interface InitialPropertiesHyperCube {
     qHyperCubeDef: HyperCubeDef;
     [key: string]: any;
 }
-export interface InitialPropertiesListobject {
-    qListobjectDef: ListobjectDef;
+export interface InitialPropertiesListObject {
+    qListObjectDef: ListObjectDef;
     [key: string]: any;
 }
-export type InitialProperties = InitialPropertiesHyperCube | InitialPropertiesListobject;
+export type InitialProperties = InitialPropertiesHyperCube | InitialPropertiesListObject;
 export interface SnapshotLegacy {
     canTakeSnapshot: boolean;
 }
@@ -354,7 +354,7 @@ export interface Support {
     export: SupportItem;
     exportData: SupportItem;
 }
-export type Paint = (this: ExtensionContext, $element?: any, layout?: Layout, qDimensionInfo?: NxDimensionInfo, qMeasureInfo?: NxDimensionInfo, qMatrix?: NxCellRows[], dimensions?: NxCell[], measures?: NxCell[], qSize?: Size, qId?: string, qSelectionInfo?: Selectionobject) => void;
+export type Paint = (this: ExtensionContext, $element?: any, layout?: Layout, qDimensionInfo?: NxDimensionInfo, qMeasureInfo?: NxMeasureInfo, qMatrix?: NxCellRows[], dimensions?: NxCell[], measures?: NxCell[], qSize?: Size, qId?: string, qSelectionInfo?: SelectionObject) => void;
 export interface VisualizationCommon {
     qHyperCubeDef: HyperCubeDef;
     title: string;
@@ -365,39 +365,39 @@ export interface VisualizationCommon {
 export type VisualizationOptions = VisualizationCommon;
 export type ShowFunction = (layout: Layout, cls: any, obj: any) => boolean | ((measure: NxMeasure) => boolean);
 export interface CustomPropertyCommon {
-    type?: "string" | "integer" | "number" | "array" | "boolean" | "items" | undefined;
-    ref?: string | undefined;
-    label?: string | undefined;
-    show?: boolean | ShowFunction | undefined;
+    type?: "string" | "integer" | "number" | "array" | "boolean" | "items";
+    ref?: string;
+    label?: string;
+    show?: boolean | ShowFunction;
 }
 export interface CustomPropertyString extends CustomPropertyCommon {
     type: "string";
-    expression?: "always" | "optional" | "" | undefined;
-    maxLength?: number | undefined;
-    defaultValue?: string | undefined;
+    expression?: "always" | "optional" | "";
+    maxLength?: number;
+    defaultValue?: string;
 }
 export interface CustomPropertyInteger extends CustomPropertyCommon {
     type: "integer";
-    component?: string | undefined;
-    min?: string | undefined;
-    max?: string | undefined;
-    defaultValue?: number | undefined;
+    component?: string;
+    min?: string;
+    max?: string;
+    defaultValue?: number;
 }
 export interface CustomPropertyNumber extends CustomPropertyCommon {
     type: "number";
-    component?: string | undefined;
-    min?: string | undefined;
-    max?: string | undefined;
-    defaultValue?: number | undefined;
+    component?: string;
+    min?: string;
+    max?: string;
+    defaultValue?: number;
 }
 export interface CustomPropertyArray extends CustomPropertyCommon {
     type: "array";
     component?: undefined;
-    itemTitleRef?: string | undefined;
-    allowAdd?: boolean | undefined;
-    allowRemove?: boolean | undefined;
-    addTranslation?: string | undefined;
-    allowMove?: boolean | undefined;
+    itemTitleRef?: string;
+    allowAdd?: boolean;
+    allowRemove?: boolean;
+    addTranslation?: string;
+    allowMove?: boolean;
 }
 export interface CustomPropertyButton extends CustomPropertyCommon {
     component: "button";
@@ -411,17 +411,17 @@ export interface ButtonGroupOption {
 export interface CustomPropertyButtonGroup extends CustomPropertyCommon {
     type: "string";
     component: "buttongroup";
-    defaultValue?: string | undefined;
-    options?: ButtonGroupOption[] | (() => ButtonGroupOption[]) | undefined;
+    defaultValue?: string;
+    options?: ButtonGroupOption[] | (() => ButtonGroupOption[]);
 }
 export interface CustomPropertyCheckbox extends CustomPropertyCommon {
     type: "boolean";
-    defaultValue?: boolean | undefined;
+    defaultValue?: boolean;
 }
 export interface CustomPropertyColorPicker extends CustomPropertyCommon {
     type: "integer";
     component: "color-picker";
-    defaultValue?: number | undefined;
+    defaultValue?: number;
 }
 export interface CustomPropertyOption {
     value: string;
@@ -432,45 +432,45 @@ export interface CustomPropertyDropdown extends CustomPropertyCommon {
     type: "string";
     ref: string;
     component: "dropdown";
-    defaultValue?: string | undefined;
-    options?: CustomPropertyOptions | undefined;
+    defaultValue?: string;
+    options?: CustomPropertyOptions;
 }
 export interface CustomPropertyLink extends CustomPropertyCommon {
     component: "link";
-    url?: string | undefined;
+    url?: string;
 }
-export interface CustomProperyMedia extends CustomPropertyCommon {
+export interface CustomPropertyMedia extends CustomPropertyCommon {
     type: "string";
     component: "media";
-    layoutRef?: string | undefined;
+    layoutRef?: string;
 }
 export interface CustomPropertyRadio extends CustomPropertyCommon {
     type: "string";
     component: "radiobuttons";
-    defaultValue?: string | undefined;
-    options?: CustomPropertyOptions | undefined;
+    defaultValue?: string;
+    options?: CustomPropertyOptions;
 }
 export interface CustomPropertySlider extends CustomPropertyCommon {
     type: "number";
     component: "slider";
-    defaultValue?: number | undefined;
-    min?: number | undefined;
-    max?: number | undefined;
-    step?: number | undefined;
+    defaultValue?: number;
+    min?: number;
+    max?: number;
+    step?: number;
 }
 export interface CustomPropertyRangeSlider extends CustomPropertyCommon {
     type: "array";
     component: "slider";
-    defaultValue?: number | undefined;
-    min?: number | undefined;
-    max?: number | undefined;
-    step?: number | undefined;
+    defaultValue?: number;
+    min?: number;
+    max?: number;
+    step?: number;
 }
 export interface CustomPropertySwitch extends CustomPropertyCommon {
     type: "boolean";
     component: "switch";
-    defaultValue?: string | undefined;
-    options?: CustomPropertyOptions | undefined;
+    defaultValue?: string;
+    options?: CustomPropertyOptions;
 }
 export interface CustomPropertyText extends CustomPropertyCommon {
     component: "text";
@@ -478,15 +478,15 @@ export interface CustomPropertyText extends CustomPropertyCommon {
 export interface CustomPropertyTextArea extends CustomPropertyCommon {
     type: "string";
     component: "textarea";
-    rows?: number | undefined;
-    maxlength?: number | undefined;
-    defaultValue?: string | undefined;
+    rows?: number;
+    maxlength?: number;
+    defaultValue?: string;
 }
 export interface CustomPropertyExpression extends CustomPropertyCommon {
     type: undefined;
     component: "expression";
     expressionType: "dimension" | "measure" | "StringExpr" | "ValueExpr" | "ValueExpression" | "StringExpression";
-    defaultValue?: string | undefined;
+    defaultValue?: string;
 }
 export interface CustomPropertyItems extends CustomPropertyCommon {
     type: "items";
@@ -494,51 +494,51 @@ export interface CustomPropertyItems extends CustomPropertyCommon {
         [key: string]: CustomProperty;
     };
 }
-export type CustomProperty = CustomPropertyString | CustomPropertyInteger | CustomPropertyNumber | CustomPropertyArray | CustomPropertyButton | CustomPropertyButtonGroup | CustomPropertyCheckbox | CustomPropertyColorPicker | CustomPropertyDropdown | CustomPropertyLink | CustomProperyMedia | CustomPropertyRadio | CustomPropertySlider | CustomPropertyRangeSlider | CustomPropertySwitch | CustomPropertyText | CustomPropertyTextArea | CustomPropertyExpression | CustomPropertyItems;
+export type CustomProperty = CustomPropertyString | CustomPropertyInteger | CustomPropertyNumber | CustomPropertyArray | CustomPropertyButton | CustomPropertyButtonGroup | CustomPropertyCheckbox | CustomPropertyColorPicker | CustomPropertyDropdown | CustomPropertyLink | CustomPropertyMedia | CustomPropertyRadio | CustomPropertySlider | CustomPropertyRangeSlider | CustomPropertySwitch | CustomPropertyText | CustomPropertyTextArea | CustomPropertyExpression | CustomPropertyItems;
 export interface Definition {
     type: "items";
     component: "accordion";
     items: {
         data?: {
             uses: "data";
-        } | undefined;
+        };
         dimensions?: {
             uses: "dimensions";
-            ref?: string | undefined;
-            min?: number | undefined;
-            max?: number | undefined;
+            ref?: string;
+            min?: number;
+            max?: number;
             items?: {
                 [key: string]: CustomProperty;
-            } | undefined;
-        } | undefined;
+            };
+        };
         measures?: {
             uses: "measures";
-            ref?: string | undefined;
-            min?: number | undefined;
-            max?: number | undefined;
+            ref?: string;
+            min?: number;
+            max?: number;
             items?: {
                 [key: string]: CustomProperty;
-            } | undefined;
-        } | undefined;
+            };
+        };
         sorting?: {
             uses: "sorting";
             items?: {
                 [key: string]: CustomProperty;
-            } | undefined;
-        } | undefined;
+            };
+        };
         settings?: {
             uses: "settings";
             items?: {
                 [key: string]: CustomProperty;
-            } | undefined;
-        } | undefined;
+            };
+        };
     };
 }
 export interface Extension {
     initialProperties: InitialProperties;
     definition: Definition;
     paint: Paint;
-    support?: Support | undefined;
+    support?: Support;
 }
 export interface Patch {
     qOp: "add" | "remove" | "replace";
@@ -586,12 +586,12 @@ export interface QDimensionCell {
     qText: string;
     qElemNumber: number;
     qState: string;
-    qNum?: number | undefined;
+    qNum?: number;
     select(): void;
 }
 export interface QMeasureCell {
     qText: string;
-    qNum?: number | undefined;
+    qNum?: number;
     getPercent(): number;
     getPercentOfMax(): number;
 }
@@ -606,21 +606,21 @@ export interface QHeader {
     isOrderedBy: boolean;
     qReverseSort: boolean;
     col: number;
-    qCardinal?: number | undefined;
+    qCardinal?: number;
     qStateCounts?: {
         [state: string]: number;
-    } | undefined;
-    qMin?: number | undefined;
-    qMax?: number | undefined;
-    errorCode?: number | undefined;
-    errorMessage?: number | undefined;
+    };
+    qMin?: number;
+    qMax?: number;
+    errorCode?: number;
+    errorMessage?: number;
     orderBy(): void;
     reverseOrder(): void;
     selectRange(min: number, max: number, inclMin: boolean, inclMax: boolean): Promise<any>;
 }
 export interface ExportDataOptions {
     format: "OOXML" | "CSV_C" | "CSV_T";
-    filename?: string | undefined;
+    filename?: string;
     state: "A" | "P";
     download: boolean;
 }
@@ -644,8 +644,8 @@ export interface QFieldValue {
     qText: string;
     qElemNumber: number;
     qState: any;
-    qNum?: string | undefined;
-    qFrequency?: string | undefined;
+    qNum?: string;
+    qFrequency?: string;
     select(toggle?: boolean, softlock?: boolean): Promise<any>;
 }
 export interface GetDataOptions {
@@ -653,11 +653,11 @@ export interface GetDataOptions {
     frequencyMode: "V" | "P" | "R" | "N";
 }
 export interface QField {
-    rows?: QFieldValue[] | undefined;
-    rowCount?: number | undefined;
+    rows?: QFieldValue[];
+    rowCount?: number;
     qStateCounts?: {
         [state: string]: number;
-    } | undefined;
+    };
     clear(): Promise<any>;
     clearOther(softlock: boolean): Promise<any>;
     getData(options: GetDataOptions): this;
@@ -673,11 +673,11 @@ export interface QField {
     toggleSelect(match: string, softlock?: boolean): Promise<any>;
     unlock(): Promise<any>;
 }
-export type ListTypes = "FieldList" | "MeasureList" | "DimensionList" | "BookmarkList" | "Selectionobject" | "SnapshotList" | "MediaList" | "sheet" | "Materobject" | "VariableList" | "story";
-export interface App {
+export type ListTypes = "FieldList" | "MeasureList" | "DimensionList" | "BookmarkList" | "SelectionObject" | "SnapshotList" | "MediaList" | "sheet" | "MasterObject" | "VariableList" | "story";
+export interface IApp {
     addAlternateState(qStateName: string): Promise<any>;
     back(): Promise<any>;
-    clearrAll(lockedAlso?: boolean, state?: string): Promise<any>;
+    clearAll(lockedAlso?: boolean, state?: string): Promise<any>;
     close(): void;
     createCube(qHyperCubeDef: HyperCubeDef, callback?: (hypercube: HyperCube) => void): Promise<any>;
     destroySession(id: string): Promise<any>;
@@ -691,40 +691,38 @@ export interface App {
     forward(): Promise<any>;
     getAppLayout(callback: (layout: Layout) => void): Promise<any>;
     getFullPropertyTree(id: string): Promise<any>;
-    getList(type: ListTypes, callback: {
-        (reply: any): void;
-        (reply: any): void;
-    }): Promise<any>;
+    getList(type: ListTypes, callback: (reply: any) => void): Promise<any>;
     destroySessionObject(id: string): Promise<any>;
-    getobject(elem?: HTMLElement | string, id?: string | "CurrentSelections", options?: {
-        noInteraction?: boolean | undefined;
-        noSelections?: boolean | undefined;
+    getObject(elem?: HTMLElement | string, id?: string | "CurrentSelections", options?: {
+        noInteraction?: boolean;
+        noSelections?: boolean;
     }): Promise<any>;
     getObjectProperties(id: string): Promise<any>;
     getSnapshot(elem?: HTMLElement | string, id?: string): Promise<any>;
     lockAll(state?: string): Promise<any>;
     removeAlternateState(qStateName: string): Promise<any>;
     unlockAll(state?: string): Promise<any>;
+    createGenericObject(_0: any, callback: (_1: any) => void): Promise<any>;
     variable: {
-        getContent(variable: string, callback: (value: Variable, app: App) => void): Promise<any>;
+        getContent(variable: string, callback: (value: Variable, app: IApp) => void): Promise<any>;
         setContent(variable: string, value: string): void;
     };
 }
-export type callRepository = (path: string, method: string, body: string) => Promise<any>;
-export type currApp = (reference: object) => App;
+export type CallRepository = (path: string, method: string, body: string) => Promise<any>;
+export type CurrApp = (reference: object) => IApp;
 export interface GetAppConfig {
-    host?: string | undefined;
+    host?: string;
     port: string | number;
-    prefix?: string | undefined;
-    isSecure?: boolean | undefined;
-    openWithoutData?: boolean | undefined;
-    identity?: string | undefined;
+    prefix?: string;
+    isSecure?: boolean;
+    openWithoutData?: boolean;
+    identity?: string;
     ticket?: string;
     isSaaS?: boolean;
     webIntegrationId?: string;
 }
-export type getAppList = (callback: App[], config: GetAppConfig) => void;
-export type getExtensionList = (callback: any[]) => Promise<any>;
+export type GetAppList = (callback: IApp[], config: GetAppConfig) => void;
+export type GetExtensionList = (callback: any[]) => Promise<any>;
 export type Global = any;
 export interface GetGlobalConfig {
     host: string;
@@ -733,10 +731,10 @@ export interface GetGlobalConfig {
     isSecure: boolean;
     identity: string;
 }
-export type getGlobal = (config: GetGlobalConfig) => Global;
-export type openApp = (appId: string, config: GetAppConfig) => App;
-export type registerExtension = (id: string, impl: Extension, metadata: object) => void;
-export type resize = (ID?: string) => void;
+export type GetGlobal = (config: GetGlobalConfig) => Global;
+export type OpenApp = (appId: string, config: GetAppConfig) => IApp;
+export type RegisterExtension = (id: string, impl: Extension, metadata: object) => void;
+export type Resize = (ID?: string) => void;
 export declare namespace LanguageCodes {
     type German = "de" | "de-DE";
     type English = "en" | "en-US";
@@ -750,24 +748,24 @@ export declare namespace LanguageCodes {
     type BrazilianPortuguese = "pt" | "pt-BR";
     type Russian = "ru" | "ru-RU";
     type Swedish = "sv" | "sv-SE";
-    type Turkish = "ts" | "ts-TR";
+    type Turkish = "tr" | "tr-TR";
     type SimplifiedChinese = "zh-CN";
     type TraditionalChinese = "zh-TW";
-    type ALL = German | English | Spanish | French | Italian | Japanese | Korean | Dutch | Polish | BrazilianPortuguese | Russian | Swedish | Turkish | SimplifiedChinese | TraditionalChinese;
+    type All = German | English | Spanish | French | Italian | Japanese | Korean | Dutch | Polish | BrazilianPortuguese | Russian | Swedish | Turkish | SimplifiedChinese | TraditionalChinese;
 }
-export type setLanguage = (lang: LanguageCodes.ALL) => void;
+export type SetLanguage = (lang: LanguageCodes.All) => void;
 export interface Error {
-    code: any;
+    code: string | number;
     message: string;
 }
-export type setOnError = (onError: (error: Error) => void, onWarning: (warning: string) => void) => void;
-export type table = (ext: object, path?: string) => void;
+export type SetOnError = (onError: (error: Error) => void, onWarning?: (warning: string) => void) => void;
+export type Table = (ext: object, path?: string) => void;
 export interface IQlik {
     callRepository(path: string, method?: string, body?: string): Promise<any>;
-    currApp(object?: any): App;
+    currApp(object?: any): IApp;
     getAppList(callback: any, config?: GetAppConfig): void;
     getGlobal(config: GetGlobalConfig): any;
-    openApp(appId: string, config?: GetAppConfig): App;
+    openApp(appId: string, config?: GetAppConfig): IApp;
     resize(ID?: string): void;
     setLanguage(lang: string): void;
     setOnError(onError: any, onWarning?: any): void;
