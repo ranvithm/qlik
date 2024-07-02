@@ -303,9 +303,8 @@ const App: React.FC = () => {
   });
 
   qlik
-    .callRequire()
+    .setQlik()
     .then(async (q) => {
-      await qlik.setQlik();
       await qlik.setAuthUser();
       const { user } = qlik;
       setUser(user);
@@ -353,9 +352,8 @@ const App: React.FC = () => {
   });
 
   qlik
-    .callRequire()
+    .setQlik()
     .then(async (q) => {
-      await qlik.setQlik();
       await _qlik.authenticateToQlik();
       await _qlik.setAuthUser();
       const { user } = qlik;
