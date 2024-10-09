@@ -1,21 +1,23 @@
 # qlik
 
+[![NPM](https://img.shields.io/npm/v/qlik.svg)](https://www.npmjs.com/package/qlik)
+
 This module facilitates easy integration between Qlik Sense Enterprise/Cloud and web applications by leveraging the Qlik Capability API. Developers can seamlessly connect to multiple Qlik Sense applications and interact with the Qlik Sense API using the utilities provided in this package. [Qlik helper for more details & other API's](https://help.qlik.com/en-US/sense-developer/August2022/Subsystems/APIs/Content/Sense_ClientAPIs/capability-apis-reference.htm)
 
 This module provides a set of utilities to streamline the interaction between your web applications and the Qlik Sense API.
 
 ## Table of Contents
 
-- [Qlik](#qlik)
-  - [Features](#features)
-  - [Installation](#installation)
-  - [Configuration](#configuration)
-  - [Usage](#usage)
+- Qlik
+  - Features
+  - Installation
+  - Configuration
+  - Usage
   - [Advanced Usage](#advanced-usage)
   - [API Documentation](#api-documentation)
-  - [Example](#example)
-  - [Contributing](#contributing)
-  - [License](#license)
+  - Example
+  - Contributing
+  - License
 
 ## Features
 
@@ -32,6 +34,8 @@ To install the Qlik Capability API Wrapper, use npm:
 $ npm install qlik
 ```
 
+Or with yarn:
+
 ```bash
 $ yarn add qlik
 ```
@@ -40,12 +44,12 @@ $ yarn add qlik
 
 Create a configuration object with the following properties:
 
-- host (string): The hostname of your Qlik Sense instance.
-- port (string | number): The port number to connect to Qlik Sense.
-- prefix (string): The prefix for the Qlik Sense resources (default: /).
-- isSecure (boolean): Whether to use HTTPS (default: true).
-- ticket (string, optional): Ticket for authentication.
-- webIntegrationId (string, optional): Web integration ID for Qlik Sense SaaS.
+- **`host` (string)**: The hostname of your Qlik Sense instance.
+- **`port` (string | number)**: The port number to connect to Qlik Sense.
+- **`prefix` (string)**: The prefix for the Qlik Sense resources (default: /).
+- **`isSecure` (boolean)**: Whether to use HTTPS (default: true).
+- **`ticket` (string, optional)**: Ticket for authentication.
+- **`webIntegrationId` (string, optional)**: Web integration ID for Qlik Sense SaaS.
 
 ### Example configuration:
 
@@ -171,33 +175,7 @@ Constructor
 new Qlik(config: IConfig)
 ```
 
-- `config`: Configuration object.
-
-### Methods
-
-#### Authenticate to Qlik Sense.
-
-`authenticateToQlik(): Promise<void>`
-
-#### Set authenticated user information.
-
-`setAuthUser(): Promise<void>`
-
-#### Fetch data from Qlik Sense API.
-
-`fetchAPI(url: string, method: string = 'GET', payload: any = null): Promise<any>`
-
-- `url`: API endpoint.
-
-- `method`: HTTP method (default: 'GET').
-
-- `payload`: Request payload.
-
-#### Fetch a specific space by ID.
-
-`getSpace(id: string): Promise<any>`
-
-`id`: Space ID.
+remove this link aswell
 
 #### Fetch the list of spaces.
 
@@ -223,8 +201,8 @@ new Qlik(config: IConfig)
 
 `getList(app: IApp, type: ListTypes): Promise<any>`
 
-- `app`: Qlik app instance.
-- `type`: Type of objects to fetch.
+- **`app` (Qlik app instance)**: Qlik app instance.
+- **`type` (Type of objects to fetch)**: Type of objects to fetch.
 
 #### Fetch measures from an app.
 
@@ -232,157 +210,127 @@ new Qlik(config: IConfig)
 
 #### Fetch variables from an app.
 
-- `app`: Qlik app instance.
-- `getVariable(app: IApp): Promise<any>`
+`getVariable(app: IApp): Promise<any>`
 
 #### Fetch fields from an app.
 
-- app: Qlik app instance.
-- getFields(app: IApp): Promise<any>
+`getFields(app: IApp): Promise<any>`
 
 #### Fetch bookmarks from an app.
 
-- `app`: Qlik app instance.
-- `getBookmark(app: IApp): Promise<any>`
+`getBookmark(app: IApp): Promise<any>`
 
 #### Evaluate an expression in an app.
 
-- `app`: Qlik app instance.
-- `evaluateExpression(app: IApp, title: any): Promise<any>`
+`evaluateExpression(app: IApp, title: any): Promise<any>`
+
+- **`app`**: Qlik app instance.
+- **`title`**: Expression to evaluate.
 
 #### Fetch properties of an object in an app.
 
-- `app`: Qlik app instance.
-- `title`: Expression to evaluate.
-- `objectProper(app: IApp, model: any): Promise<any>`
+`objectProper(app: IApp, model: any): Promise<any>`
+
+- **`app`**: Qlik app instance.
+- **`model`**: Object model.
 
 #### Fetch titles of an object in an app.
 
-- `app`: Qlik app instance.
-- `model`: Object model.
-- `getQlikObjectTitles(app: IApp, id: string): Promise<any>`
+`getQlikObjectTitles(app: IApp, id: string): Promise<any>`
+
+- **`app`**: Qlik app instance.
+- **`id`**: Object ID.
 
 #### Fetch sheets from an app.
 
-- `app`: Qlik app instance.
-- `id`: Object ID.
-- `getSheet(app: IApp): Promise<any>`
+`getSheet(app: IApp): Promise<any>`
 
 #### Fetch a specific object from an app.
 
-- `app`: Qlik app instance.
-- `callObject(app: IApp, id: string): Promise<any>`
+`callObject(app: IApp, id: string): Promise<any>`
+
+- **`app`**: Qlik app instance.
+- **`id`**: Object ID.
 
 #### Fetch data from an app.
 
-- `id`: App ID.
-- `getApp(id: string): Promise<any[]>`
+`getApp(id: string): Promise<any[]>`
+
+- **`id`**: App ID.
 
 ## Example
 
 ### Enterprise
 
-sample module for react with qlik enterprise.
+To get started with a sample module for React with Qlik Enterprise, clone the example project from GitHub and start the project.
 
-```typescript
-import React, { useState } from "react";
-import Qlik from "qlik";
-import { Box } from "@mui/material";
+### Steps:
 
-import Dashboard from "../components/dashboard";
-import Header from "../components/header";
+1. Clone the repository:
 
-const App: React.FC = () => {
-  const [user, setUser] = useState<any>();
-  const qlik = new Qlik({
-    host: "localhost",
-    port: 80,
-    prefix: "/ticket/",
-    isSecure: false,
-    ticket: "qlikTicket=9byYoKhTnv9PP8aq",
-  });
-
-  qlik
-    .setQlik()
-    .then(async (q) => {
-      await qlik.setAuthUser();
-      const { user } = qlik;
-      setUser(user);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-
-  return (
-    <Box>
-      <Header user={user} />
-      <Dashboard />
-    </Box>
-  );
-};
-
-export default App;
+```bash
+$ git clone https://github.com/ranvithm/qlik.git
 ```
 
-Before utilizing the Qlik Capability API Wrapper, it's necessary to create a [virtual proxy](https://help.qlik.com/en-US/sense-admin/November2023/Subsystems/DeployAdministerQSE/Content/Sense_DeployAdminister/QSEoW/Administer_QSEoW/Managing_QSEoW/create-virtual-proxy.htm#:~:text=drop%2Ddown%20menu%20to%20display,the%20Virtual%20proxy%20edit%20window.) in your Qlik Sense environment to configure the prefix and whitelist
-the host (localhost) and port (3000).
+2. Navigate to the example project directory:
+
+```bash
+$ cd qlik/example/with-enterprise
+```
+
+3. Install the dependencies:
+
+```bash
+$ npm install
+```
+
+4. Start the project:
+
+```bash
+$ npm start
+```
+
+Before utilizing the Qlik Capability API Wrapper, it's necessary to create a [virtual proxy](https://help.qlik.com/en-US/sense-admin/November2023/Subsystems/DeployAdministerQSE/Content/Sense_DeployAdminister/QSEoW/Administer_QSEoW/Managing_QSEoW/create-virtual-proxy.htm#:~:text=drop%2Ddown%20menu%20to%20display,the%20Virtual%20proxy%20edit%20window.) in your Qlik Sense environment to configure the prefix and whitelist the host (localhost) and port (3000).
 
 Explore the sample project [here](https://github.com/ranvithm/qlik/tree/main/example/with-enterprise).
 
 ### Cloud
 
-sample module for react with qlik cloud.
+To get started with a sample module for React with Qlik Cloud, clone the example project from GitHub and start the project.
 
-```typescript
-import React, { useState } from "react";
-import Qlik from "qlik";
-import { Box } from "@mui/material";
+### Steps:
 
-import Dashboard from "../components/dashboard";
-import Header from "../components/header";
+1. Clone the repository:
 
-const App: React.FC = () => {
-  const [user, setUser] = useState<any>();
-  const qlik = new Qlik({
-    host: "domain.name",
-    port: 443,
-    prefix: "/",
-    isSecure: true,
-    webIntegrationId: "**YoKhTnv9PP8aq",
-  });
-
-  qlik
-    .setQlik()
-    .then(async (q) => {
-      await _qlik.authenticateToQlik();
-      await _qlik.setAuthUser();
-      const { user } = qlik;
-      setUser(user);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-
-  return (
-    <Box>
-      <Header user={user} />
-      <Dashboard />
-    </Box>
-  );
-};
-
-export default App;
+```bash
+$ git clone https://github.com/ranvithm/qlik.git
 ```
 
-Before utilizing the Qlik Capability API Wrapper, it's necessary to [create a web integration id](https://help.qlik.com/en-US/cloud-services/Subsystems/Hub/Content/Sense_Hub/Admin/mc-adminster-web-integrations.htm?_ga=2.178546276.1908556056.1704033907-1088852823.1639579506) in your Qlik Sense environment to configure and whitelist
-the host (localhost) and port (3000).
+2. Navigate to the example project directory:
+
+```bash
+cd qlik/example/with-cloud
+```
+
+3. Install the dependencies:
+
+```bash
+$ npm install
+```
+
+4. Start the project:
+
+```bash
+$ npm start
+```
+
+Before utilizing the Qlik Capability API Wrapper, it's necessary to [create a web integration id](https://help.qlik.com/en-US/cloud-services/Subsystems/Hub/Content/Sense_Hub/Admin/mc-adminster-web-integrations.htm?_ga=2.178546276.1908556056.1704033907-1088852823.1639579506) in your Qlik Sense environment to configure and whitelist the host (localhost) and port (3000).
 
 Explore the sample project [here](https://github.com/ranvithm/qlik/tree/main/example/with-cloud).
 
-## Contribution
+## Contributing
 
-This library is still under construction and we are looking for contributors.
-If you like to contribute please contact me: ranvitranjit@gmail.com
+This library is still under construction and we are looking for contributors. If you would like to contribute, please contact me: ranvitranjit@gmail.com
 
 ## License
 

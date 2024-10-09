@@ -18,7 +18,7 @@ To explore the Cloud project, follow these steps:
 
     ```bash
     $ cd qlik/example/with-cloud
-    $ npm install
+    $ pnpm install
     ```
 
 3. Update configuration:
@@ -33,7 +33,7 @@ To begin developing with the Qlik Cloud integration:
 - Run the development server:
 
     ```bash
-    $ npm run dev
+    $ pnpm run dev
     ```
 
 You're now ready to start building your web application integrated with Qlik Cloud.
