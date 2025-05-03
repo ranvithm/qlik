@@ -359,6 +359,8 @@ interface QField {
 }
 type ListTypes = "FieldList" | "MeasureList" | "DimensionList" | "BookmarkList" | "SelectionObject" | "SnapshotList" | "MediaList" | "sheet" | "MasterObject" | "VariableList" | "story";
 interface IApp {
+    id: string;
+    selectionState: SelectionObject;
     addAlternateState(qStateName: string): Promise<any>;
     back(): Promise<any>;
     clearAll(lockedAlso?: boolean, state?: string): Promise<any>;
@@ -402,6 +404,15 @@ interface GetAppConfig {
     ticket?: string;
     isSaaS?: boolean;
     webIntegrationId?: string;
+    isCssRequired?: boolean;
+    loginUri?: string;
+    auth?: {
+        method: 'redirect' | 'popup';
+        popupWidth?: number;
+        popupHeight?: number;
+        loginCallback?: (user: any) => void;
+        logoutCallback?: () => void;
+    };
 }
 interface GetGlobalConfig {
     host: string;
@@ -437,12 +448,15 @@ declare class Qlik {
     ticket?: string;
     isSaaS: boolean;
     webIntegrationId: string;
+    isCssRequired: boolean;
     constructor(config: GetAppConfig);
     private appendScript;
     private appendStylesheet;
     callRequire(): Promise<void>;
     setQlik(): Promise<IQlik>;
     private fetchAPI;
+    private openAuthPopup;
+    private checkAuthStatus;
     authenticateToQlik(): Promise<void>;
     setAuthUser(): Promise<void>;
     getMoreData(response: any): Promise<any>;
@@ -463,6 +477,10 @@ declare class Qlik {
     getSheet(app: IApp): Promise<any>;
     callObject(app: IApp, id: string): Promise<any>;
     checkAppOpen(app: IApp): Promise<IApp>;
+    private setupEngineConnectionMonitoring;
+    private getSessionKey;
+    private saveSessionState;
+    private restoreSessionState;
     isAppOpen(id: string): Promise<IApp>;
     getApp(id: string): Promise<any[]>;
 }

@@ -675,6 +675,8 @@ export interface QField {
 }
 export type ListTypes = "FieldList" | "MeasureList" | "DimensionList" | "BookmarkList" | "SelectionObject" | "SnapshotList" | "MediaList" | "sheet" | "MasterObject" | "VariableList" | "story";
 export interface IApp {
+    id: string;
+    selectionState: SelectionObject;
     addAlternateState(qStateName: string): Promise<any>;
     back(): Promise<any>;
     clearAll(lockedAlso?: boolean, state?: string): Promise<any>;
@@ -720,6 +722,15 @@ export interface GetAppConfig {
     ticket?: string;
     isSaaS?: boolean;
     webIntegrationId?: string;
+    isCssRequired?: boolean;
+    loginUri?: string;
+    auth?: {
+        method: 'redirect' | 'popup';
+        popupWidth?: number;
+        popupHeight?: number;
+        loginCallback?: (user: any) => void;
+        logoutCallback?: () => void;
+    };
 }
 export type GetAppList = (callback: IApp[], config: GetAppConfig) => void;
 export type GetExtensionList = (callback: any[]) => Promise<any>;

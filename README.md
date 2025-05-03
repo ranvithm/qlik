@@ -169,94 +169,144 @@ fetchAppData("your-app-id");
 
 ### Qlik Class
 
-Constructor
+#### Constructor
 
 ```ts
-new Qlik(config: IConfig)
+new Qlik(config: GetAppConfig)
 ```
 
-remove this link aswell
+Configuration interface:
+```ts
+interface GetAppConfig {
+  host?: string;                 // The hostname of your Qlik Sense instance
+  port: string | number;         // The port number
+  prefix?: string;              // The prefix for Qlik Sense resources (default: /)
+  isSecure?: boolean;           // Whether to use HTTPS (default: true)
+  openWithoutData?: boolean;    // Open app without data
+  identity?: string;            // Identity for authentication
+  ticket?: string;              // Ticket for authentication
+  isSaaS?: boolean;             // Whether connecting to Qlik Sense SaaS
+  webIntegrationId?: string;    // Web integration ID for Qlik Sense SaaS
+  isCssRequired?: boolean;      // Whether CSS is required
+  loginUri?: string;            // Login URI
+  auth?: {                      // Authentication configuration
+    method: 'redirect' | 'popup';
+    popupWidth?: number;
+    popupHeight?: number;
+    loginCallback?: (user: any) => void;
+    logoutCallback?: () => void;
+  };
+}
+```
 
-#### Fetch the list of spaces.
+#### Authentication Methods
 
-`getSpaceList(): Promise<any[]>`
+```ts
+authenticateToQlik(): Promise<void>
+setAuthUser(): Promise<void>
+```
 
-#### Fetch the list of users.
+#### Data Retrieval Methods
 
-`getUserList(): Promise<any[]>`
+```ts
+getSpaceList(): Promise<any[]>               // Get list of spaces
+getUserList(): Promise<any[]>                // Get list of users
+getAppList(): Promise<any[]>                // Get list of apps
+getThemeList(): Promise<any[]>              // Get list of themes
+getDocs(): Promise<IApp[]>                  // Get list of documents
+getApp(id: string): Promise<any[]>          // Get a specific app
+isAppOpen(id: string): Promise<IApp>        // Check if an app is open
+```
 
-#### Fetch the list of apps.
+#### App Object Methods
 
-`getAppList(): Promise<any[]>`
+```ts
+getList(app: IApp, type: ListTypes): Promise<any>     // Get list of objects from an app
+getMeasure(app: IApp): Promise<any>                   // Get measures from an app
+getVariable(app: IApp): Promise<any>                  // Get variables from an app
+getFields(app: IApp): Promise<any>                    // Get fields from an app
+getBookmark(app: IApp): Promise<any>                  // Get bookmarks from an app
+getSheet(app: IApp): Promise<any>                     // Get sheets from an app
+evaluateExpression(app: IApp, title: any): Promise<any>   // Evaluate expression in an app
+objectProper(app: IApp, model: any): Promise<any>     // Get object properties
+getQlikObjectTitles(app: IApp, id: string): Promise<any>  // Get object titles
+callObject(app: IApp, id: string): Promise<any>       // Call a specific object
+```
 
-#### Fetch the list of themes.
+#### Space Management Methods
 
-`getThemeList(): Promise<any[]>`
+```ts
+getSpace(id: string): Promise<any>          // Get a specific space
+getMoreData(response: any): Promise<any>    // Get additional data from a response
+```
 
-#### Fetch the list of documents.
+### IApp Interface
 
-`getDocs(): Promise<IApp[]>`
+The IApp interface represents a Qlik Sense application and provides methods for interacting with it:
 
-#### Fetch a list of objects from an app.
+```ts
+interface IApp {
+  id: string;
+  selectionState: SelectionObject;
+  visualization: {
+    get?: (id: string, elem?: any | string, options?: any) => Promise<any>;
+  };
+  
+  // State Management
+  addAlternateState(qStateName: string): Promise<any>;
+  removeAlternateState(qStateName: string): Promise<any>;
+  clearAll(lockedAlso?: boolean, state?: string): Promise<any>;
+  back(): Promise<any>;
+  forward(): Promise<any>;
+  
+  // App Management
+  close(): void;
+  doSave(qFileName?: string): Promise<any>;
+  doReload(qMode?: "0" | "1" | "2", qPartial?: boolean, qDebug?: boolean): Promise<any>;
+  
+  // Object Management
+  createCube(qHyperCubeDef: HyperCubeDef, callback?: (hypercube: HyperCube) => void): Promise<any>;
+  destroySession(id: string): Promise<any>;
+  getObject(elem?: HTMLElement | string, id?: string | "CurrentSelections", options?: { 
+    noInteraction?: boolean; 
+    noSelections?: boolean; 
+  }): Promise<any>;
+  
+  // Properties and Layout
+  getAppLayout(callback: (layout: Layout) => void): Promise<any>;
+  getFullPropertyTree(id: string): Promise<any>;
+  getObjectProperties(id: string): Promise<any>;
+  
+  // Variables
+  variable: {
+    getContent(variable: string, callback: (value: Variable, app: IApp) => void): Promise<any>;
+    setContent(variable: string, value: string): void;
+  };
+  
+  // Selection Management
+  field(field: string, state?: string): QField;
+  lockAll(state?: string): Promise<any>;
+  unlockAll(state?: string): Promise<any>;
+}
+```
 
-`getList(app: IApp, type: ListTypes): Promise<any>`
+### ListTypes
 
-- **`app` (Qlik app instance)**: Qlik app instance.
-- **`type` (Type of objects to fetch)**: Type of objects to fetch.
-
-#### Fetch measures from an app.
-
-`getMeasure(app: IApp): Promise<any>`
-
-#### Fetch variables from an app.
-
-`getVariable(app: IApp): Promise<any>`
-
-#### Fetch fields from an app.
-
-`getFields(app: IApp): Promise<any>`
-
-#### Fetch bookmarks from an app.
-
-`getBookmark(app: IApp): Promise<any>`
-
-#### Evaluate an expression in an app.
-
-`evaluateExpression(app: IApp, title: any): Promise<any>`
-
-- **`app`**: Qlik app instance.
-- **`title`**: Expression to evaluate.
-
-#### Fetch properties of an object in an app.
-
-`objectProper(app: IApp, model: any): Promise<any>`
-
-- **`app`**: Qlik app instance.
-- **`model`**: Object model.
-
-#### Fetch titles of an object in an app.
-
-`getQlikObjectTitles(app: IApp, id: string): Promise<any>`
-
-- **`app`**: Qlik app instance.
-- **`id`**: Object ID.
-
-#### Fetch sheets from an app.
-
-`getSheet(app: IApp): Promise<any>`
-
-#### Fetch a specific object from an app.
-
-`callObject(app: IApp, id: string): Promise<any>`
-
-- **`app`**: Qlik app instance.
-- **`id`**: Object ID.
-
-#### Fetch data from an app.
-
-`getApp(id: string): Promise<any[]>`
-
-- **`id`**: App ID.
+Available list types for `getList()`:
+```ts
+type ListTypes = 
+  | "FieldList" 
+  | "MeasureList" 
+  | "DimensionList" 
+  | "BookmarkList" 
+  | "SelectionObject" 
+  | "SnapshotList" 
+  | "MediaList" 
+  | "sheet" 
+  | "MasterObject" 
+  | "VariableList" 
+  | "story";
+```
 
 ## Example
 
@@ -294,6 +344,61 @@ Before utilizing the Qlik Capability API Wrapper, it's necessary to create a [vi
 
 Explore the sample project [here](https://github.com/ranvithm/qlik/tree/main/example/with-enterprise).
 
+#### Enterprise Example
+```tsx
+import { useEffect } from 'react';
+import Qlik from 'qlik';
+
+const EnterpriseExample = () => {
+  useEffect(() => {
+    const config = {
+      host: 'your-qlik-server.com',
+      prefix: '/your-virtual-proxy/',
+      port: 443,
+      isSecure: true
+    };
+
+    const qlik = new Qlik(config);
+
+    async function initializeQlik() {
+      try {
+        // Authenticate
+        await qlik.authenticateToQlik();
+        
+        // Get user information
+        await qlik.setAuthUser();
+        console.log('Current user:', qlik.user);
+
+        // Get list of apps
+        const apps = await qlik.getAppList();
+        console.log('Available apps:', apps);
+
+        // Open specific app
+        const appId = 'your-app-id';
+        const app = await qlik.isAppOpen(appId);
+
+        // Get sheets from the app
+        const sheets = await qlik.getSheet(app);
+        console.log('App sheets:', sheets);
+
+        // Get fields from the app
+        const fields = await qlik.getFields(app);
+        console.log('App fields:', fields);
+
+      } catch (error) {
+        console.error('Error initializing Qlik:', error);
+      }
+    }
+
+    initializeQlik();
+  }, []);
+
+  return <div>Qlik Enterprise Integration Example</div>;
+};
+
+export default EnterpriseExample;
+```
+
 ### Cloud
 
 To get started with a sample module for React with Qlik Cloud, clone the example project from GitHub and start the project.
@@ -327,6 +432,83 @@ $ npm start
 Before utilizing the Qlik Capability API Wrapper, it's necessary to [create a web integration id](https://help.qlik.com/en-US/cloud-services/Subsystems/Hub/Content/Sense_Hub/Admin/mc-adminster-web-integrations.htm?_ga=2.178546276.1908556056.1704033907-1088852823.1639579506) in your Qlik Sense environment to configure and whitelist the host (localhost) and port (3000).
 
 Explore the sample project [here](https://github.com/ranvithm/qlik/tree/main/example/with-cloud).
+
+#### Cloud Example
+```tsx
+import { useEffect } from 'react';
+import Qlik from 'qlik';
+
+const CloudExample = () => {
+  useEffect(() => {
+    const config = {
+      host: 'your-tenant.us.qlikcloud.com',
+      webIntegrationId: 'your-web-integration-id',
+      isSaaS: true
+    };
+
+    const qlik = new Qlik(config);
+
+    async function initializeQlikCloud() {
+      try {
+        // Authenticate to Qlik Cloud
+        await qlik.authenticateToQlik();
+        
+        // Get user information
+        await qlik.setAuthUser();
+        console.log('Current user:', qlik.user);
+
+        // Get list of spaces
+        const spaces = await qlik.getSpaceList();
+        console.log('Available spaces:', spaces);
+
+        // Get apps in a specific space
+        const spaceId = 'your-space-id';
+        const space = await qlik.getSpace(spaceId);
+        console.log('Space details:', space);
+
+        // Open and interact with an app
+        const appId = 'your-app-id';
+        const app = await qlik.isAppOpen(appId);
+
+        // Get various app objects
+        const measures = await qlik.getMeasure(app);
+        const variables = await qlik.getVariable(app);
+        const bookmarks = await qlik.getBookmark(app);
+
+        console.log('App measures:', measures);
+        console.log('App variables:', variables);
+        console.log('App bookmarks:', bookmarks);
+
+        // Evaluate an expression
+        const expression = '=Sum(Sales)';
+        const result = await qlik.evaluateExpression(app, expression);
+        console.log('Expression result:', result);
+
+      } catch (error) {
+        console.error('Error initializing Qlik Cloud:', error);
+      }
+    }
+
+    initializeQlikCloud();
+  }, []);
+
+  return <div>Qlik Cloud Integration Example</div>;
+};
+
+export default CloudExample;
+```
+
+These examples demonstrate basic usage of the Qlik package with both Enterprise and Cloud environments. They show how to:
+
+- Configure the connection
+- Authenticate
+- Get user information
+- List available apps/spaces
+- Open apps
+- Interact with app objects
+- Evaluate expressions
+
+Remember to replace placeholder values like `'your-qlik-server.com'`, `'your-web-integration-id'`, `'your-app-id'`, etc. with your actual Qlik environment values.
 
 ## Contributing
 
