@@ -1,39 +1,99 @@
 import { useEffect, useState } from "react";
-import qlik from "../../../../lib";
+import Qlik from "../../../../lib";
+import type { IApp } from "../../../../lib/types";
+
+interface QlikState {
+  instance: Qlik | null;
+  error: Error | null;
+  isInitializing: boolean;
+}
+
+interface QlikApp {
+  app: IApp;
+  id: string;
+  sheet: any[];
+  measure: any[];
+  fields: any[];
+  variable: any[];
+  bookmark: any[];
+}
 
 const useQlik = () => {
-  const [q, setQlik] = useState<any>();
-  const { VITE_QLIK_HOST, VITE_QLIK_PORT, VITE_QLIK_PREFIX, VITE_QLIK_SECURE } =
-    import.meta.env;
+  const [state, setState] = useState<QlikState>({
+    instance: null,
+    error: null,
+    isInitializing: true
+  });
+
   useEffect(() => {
-    console.log({
-      host: VITE_QLIK_HOST,
-      port: VITE_QLIK_PORT,
-      prefix: VITE_QLIK_PREFIX,
-      isSecure: VITE_QLIK_SECURE == "true",
-    });
-    
-    const _qlik = new qlik({
-      host: VITE_QLIK_HOST,
-      port: VITE_QLIK_PORT,
-      prefix: VITE_QLIK_PREFIX,
-      isSecure: VITE_QLIK_SECURE == "true",
-    });
-console.log(_qlik);
+    let mounted = true;
 
-    _qlik
-      .callRequire()
-      .then(async (q) => {
-        await _qlik.setQlik();
-        await _qlik.setAuthUser();
+    async function initializeQlik() {
+      const { VITE_QLIK_HOST, VITE_QLIK_PORT, VITE_QLIK_PREFIX, VITE_QLIK_SECURE } = import.meta.env;
+      
+      try {
+        const config = {
+          host: VITE_QLIK_HOST,
+          port: VITE_QLIK_PORT,
+          prefix: VITE_QLIK_PREFIX,
+          isSecure: VITE_QLIK_SECURE === "true",
+        };
 
-        setQlik(_qlik);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+        const qlikInstance = new Qlik(config);
+
+        // Initialize Qlik engine connection
+        await qlikInstance.callRequire();
+        
+        // Set up Qlik environment
+        const qlikApi = await qlikInstance.setQlik();
+        
+        // Configure global error handler
+        qlikApi.setOnError((error: Error) => {
+          console.error("Qlik engine error:", error);
+          if (mounted) {
+            setState(prev => ({ ...prev, error }));
+          }
+        });
+
+        // Set up authentication
+        await qlikInstance.setAuthUser();
+
+        if (mounted) {
+          setState({
+            instance: qlikInstance,
+            error: null,
+            isInitializing: false
+          });
+        }
+      } catch (error) {
+        console.error("Failed to initialize Qlik:", error);
+        if (mounted) {
+          setState({
+            instance: null,
+            error: error instanceof Error ? error : new Error(String(error)),
+            isInitializing: false
+          });
+        }
+      }
+    }
+
+    initializeQlik();
+
+    return () => {
+      mounted = false;
+      // Clean up Qlik instance if needed
+      if (state.instance) {
+        // Close any open apps
+        (state.instance.currApps as QlikApp[]).forEach(app => {
+          if (app?.app?.close) {
+            app.app.close();
+          }
+        });
+      }
+    };
   }, []);
-  return q;
+
+  return state.instance;
 };
 
 export default useQlik;

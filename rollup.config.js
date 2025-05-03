@@ -1,46 +1,45 @@
-import typescript from "rollup-plugin-typescript2";
+import typescript from "@rollup/plugin-typescript";
 import commonjs from "@rollup/plugin-commonjs";
 import resolve from "@rollup/plugin-node-resolve";
+import terser from "@rollup/plugin-terser";
 import dts from "rollup-plugin-dts";
-import { terser } from "rollup-plugin-terser";
 
 export default [
   {
-    input: "qlik/src/index.ts",
+    input: "src/index.ts",
     output: [
       {
-        file: "qlik/lib/index.js",
+        file: "lib/index.js",
         format: "umd",
         name: "Qlik",
+        sourcemap: true
       },
       {
-        file: "qlik/lib/index.mjs",
+        file: "lib/index.mjs",
         format: "es",
+        sourcemap: true
       },
       {
-        file: "qlik/lib/index.cjs",
+        file: "lib/index.cjs",
         format: "cjs",
-      },
+        sourcemap: true
+      }
     ],
+    external: ['react', 'react-dom'],
     plugins: [
       resolve({
-        browser: true,
+        browser: true
       }),
       commonjs(),
       typescript({
-        tsconfig: "./qlik/tsconfig.json",
+        tsconfig: "./tsconfig.json"
       }),
-      terser(), // Use terser for minification
-    ],
+      terser()
+    ]
   },
   {
-    input: "qlik/src/index.ts",
-    output: [
-      {
-        file: "qlik/lib/index.d.ts",
-        format: "es",
-      },
-    ],
-    plugins: [dts()],
-  },
+    input: "src/index.ts",
+    output: [{ file: "lib/index.d.ts", format: "es" }],
+    plugins: [dts()]
+  }
 ];
