@@ -6,6 +6,7 @@ import { useState, useEffect } from "react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
+import { ThemeSwitcher } from "@/components/theme-switcher"
 import { Github, Menu, Package, ExternalLink } from "lucide-react"
 
 const navigation = [
@@ -82,8 +83,9 @@ export function Navigation() {
             {/* Search component placeholder */}
           </div>
           
-          {/* Desktop External Links */}
+          {/* Desktop External Links and Theme Switcher */}
           <nav className="hidden md:flex items-center space-x-1">
+            <ThemeSwitcher />
             {externalLinks.map((link) => (
               <Button 
                 key={link.href} 
@@ -136,6 +138,17 @@ export function Navigation() {
                     </Link>
                   ))}
                 </nav>
+
+                {/* Mobile Theme Switcher */}
+                <div className="space-y-2 pt-4 border-t">
+                  <h4 className="px-4 text-sm font-medium text-muted-foreground">Settings</h4>
+                  <div className="px-4 py-2">
+                    <div className="flex items-center gap-3">
+                      <span className="text-sm text-muted-foreground">Theme</span>
+                      <ThemeSwitcher />
+                    </div>
+                  </div>
+                </div>
 
                 {/* Mobile External Links */}
                 <div className="space-y-2 pt-4 border-t">

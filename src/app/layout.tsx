@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Navigation } from "@/components/navigation";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -43,44 +44,51 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-background font-sans`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-background font-sans transition-colors duration-300`}
       >
-        <Navigation />
-        <main className="flex-1">
-          {children}
-        </main>
-        <footer className="border-t relative bg-muted z-30">
-          <div className="container flex flex-col items-center justify-between gap-4 py-10 md:h-24 md:flex-row md:py-0">
-            <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
-              <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
-                Built with{" "}
-                <a
-                  href="https://nextjs.org"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-medium underline underline-offset-4"
-                >
-                  Next.js
-                </a>{" "}
-                and{" "}
-                <a
-                  href="https://tailwindcss.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-medium underline underline-offset-4"
-                >
-                  Tailwind CSS
-                </a>
-                .
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange={false}
+        >
+          <Navigation />
+          <main className="flex-1">
+            {children}
+          </main>
+          <footer className="border-t relative bg-muted z-30 transition-colors duration-300">
+            <div className="container flex flex-col items-center justify-between gap-4 py-10 md:h-24 md:flex-row md:py-0">
+              <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
+                <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
+                  Built with{" "}
+                  <a
+                    href="https://nextjs.org"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-medium underline underline-offset-4 hover:text-foreground transition-colors"
+                  >
+                    Next.js
+                  </a>{" "}
+                  and{" "}
+                  <a
+                    href="https://tailwindcss.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-medium underline underline-offset-4 hover:text-foreground transition-colors"
+                  >
+                    Tailwind CSS
+                  </a>
+                  .
+                </p>
+              </div>
+              <p className="text-center text-sm text-muted-foreground md:text-left">
+                © 2024 Qlik SDK Documentation. All rights reserved.
               </p>
             </div>
-            <p className="text-center text-sm text-muted-foreground md:text-left">
-              © 2024 Qlik SDK Documentation. All rights reserved.
-            </p>
-          </div>
-        </footer>
+          </footer>
+        </ThemeProvider>
       </body>
     </html>
   );

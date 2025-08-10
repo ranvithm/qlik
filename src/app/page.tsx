@@ -2,7 +2,10 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { CodeBlock } from "@/components/code-block"
-import { AnimatedCard, AnimatedCardContent, AnimatedCardDescription, AnimatedCardHeader, AnimatedCardTitle } from "@/components/ui/animated-card"
+import { AnimatedCardContent, AnimatedCardDescription, AnimatedCardHeader, AnimatedCardTitle } from "@/components/ui/animated-card"
+import { AnimatedCardEnhanced } from "@/components/ui/animated-card-enhanced"
+import { AnimatedButton } from "@/components/ui/animated-button"
+import { PageTransition, SectionReveal, StaggerContainer, StaggerItem } from "@/components/page-transition"
 import { SectionHeader } from "@/components/ui/section-header"
 import { GradientBackground } from "@/components/ui/gradient-background"
 import { 
@@ -20,7 +23,7 @@ import {
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen page-transition">
+    <PageTransition className="flex flex-col min-h-screen">
       {/* Hero Section */}
       <GradientBackground className="relative">
         <section className="py-16 sm:py-24 lg:py-32">
@@ -37,15 +40,25 @@ export default function Home() {
                 description="The official TypeScript SDK for seamless integration with Qlik Sense Enterprise and Qlik Cloud. Build powerful analytics applications with type-safe APIs and modern developer experience."
               >
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
-                  <Button asChild size="lg" className="hover-lift btn-animate group min-w-[140px]">
-                    <Link href="/docs">
+                  <AnimatedButton 
+                    size="lg" 
+                    className="group min-w-[140px]" 
+                    rippleEffect 
+                    glowOnHover
+                  >
+                    <Link href="/docs" className="flex items-center">
                       Get Started
                       <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                     </Link>
-                  </Button>
-                  <Button variant="outline" size="lg" asChild className="hover-lift btn-animate min-w-[140px]">
+                  </AnimatedButton>
+                  <AnimatedButton 
+                    variant="outline" 
+                    size="lg" 
+                    className="min-w-[140px]"
+                    magneticEffect
+                  >
                     <Link href="/examples">View Examples</Link>
-                  </Button>
+                  </AnimatedButton>
                 </div>
                 
                 {/* Stats */}
@@ -73,13 +86,13 @@ export default function Home() {
       <section className="py-20 bg-muted/50">
         <div className="container">
           <div className="mx-auto max-w-4xl">
-            <div className="text-center mb-12">
+            <SectionReveal className="text-center mb-12">
               <h2 className="text-3xl font-bold tracking-tight">Get started in seconds</h2>
               <p className="mt-4 text-lg text-muted-foreground">
                 Install the package and start building with just a few lines of code
               </p>
-            </div>
-            <div className="space-y-6">
+            </SectionReveal>
+            <SectionReveal delay={0.2} className="space-y-6">
               <CodeBlock language="bash">
                 npm install qlik
               </CodeBlock>
@@ -95,7 +108,7 @@ const qlik = new Qlik({
 await qlik.authenticateToQlik();
 const apps = await qlik.getAppList();`}
               </CodeBlock>
-            </div>
+            </SectionReveal>
           </div>
         </div>
       </section>
@@ -109,91 +122,103 @@ const apps = await qlik.getAppList();`}
               Comprehensive features for building modern Qlik integrations
             </p>
           </div>
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            <AnimatedCard delay={0} className="group">
-              <AnimatedCardHeader>
-                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
-                  <Shield className="h-6 w-6 text-primary" />
-                </div>
-                <AnimatedCardTitle className="text-xl">🔐 Smart Authentication</AnimatedCardTitle>
-              </AnimatedCardHeader>
-              <AnimatedCardContent>
-                <AnimatedCardDescription>
-                  Popup and session monitoring with persistent authentication management across your applications.
-                </AnimatedCardDescription>
-              </AnimatedCardContent>
-            </AnimatedCard>
+          <StaggerContainer className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            <StaggerItem>
+              <AnimatedCardEnhanced className="group h-full" glowOnHover>
+                <AnimatedCardHeader>
+                  <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
+                    <Shield className="h-6 w-6 text-primary" />
+                  </div>
+                  <AnimatedCardTitle className="text-xl">🔐 Smart Authentication</AnimatedCardTitle>
+                </AnimatedCardHeader>
+                <AnimatedCardContent>
+                  <AnimatedCardDescription>
+                    Popup and session monitoring with persistent authentication management across your applications.
+                  </AnimatedCardDescription>
+                </AnimatedCardContent>
+              </AnimatedCardEnhanced>
+            </StaggerItem>
 
-            <AnimatedCard delay={100} className="group">
-              <AnimatedCardHeader>
-                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
-                  <Cloud className="h-6 w-6 text-primary" />
-                </div>
-                <AnimatedCardTitle className="text-xl">☁️ Multi-Platform Support</AnimatedCardTitle>
-              </AnimatedCardHeader>
-              <AnimatedCardContent>
-                <AnimatedCardDescription>
-                  Works seamlessly with both Qlik Cloud (SaaS) and Qlik Sense Enterprise environments.
-                </AnimatedCardDescription>
-              </AnimatedCardContent>
-            </AnimatedCard>
+            <StaggerItem>
+              <AnimatedCardEnhanced className="group h-full" glowOnHover>
+                <AnimatedCardHeader>
+                  <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
+                    <Cloud className="h-6 w-6 text-primary" />
+                  </div>
+                  <AnimatedCardTitle className="text-xl">☁️ Multi-Platform Support</AnimatedCardTitle>
+                </AnimatedCardHeader>
+                <AnimatedCardContent>
+                  <AnimatedCardDescription>
+                    Works seamlessly with both Qlik Cloud (SaaS) and Qlik Sense Enterprise environments.
+                  </AnimatedCardDescription>
+                </AnimatedCardContent>
+              </AnimatedCardEnhanced>
+            </StaggerItem>
 
-            <AnimatedCard delay={200} className="group">
-              <AnimatedCardHeader>
-                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
-                  <Database className="h-6 w-6 text-primary" />
-                </div>
-                <AnimatedCardTitle className="text-xl">📊 Complete API Coverage</AnimatedCardTitle>
-              </AnimatedCardHeader>
-              <AnimatedCardContent>
-                <AnimatedCardDescription>
-                  Full access to apps, sheets, objects, data models, and user management APIs.
-                </AnimatedCardDescription>
-              </AnimatedCardContent>
-            </AnimatedCard>
+            <StaggerItem>
+              <AnimatedCardEnhanced className="group h-full" glowOnHover>
+                <AnimatedCardHeader>
+                  <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
+                    <Database className="h-6 w-6 text-primary" />
+                  </div>
+                  <AnimatedCardTitle className="text-xl">📊 Complete API Coverage</AnimatedCardTitle>
+                </AnimatedCardHeader>
+                <AnimatedCardContent>
+                  <AnimatedCardDescription>
+                    Full access to apps, sheets, objects, data models, and user management APIs.
+                  </AnimatedCardDescription>
+                </AnimatedCardContent>
+              </AnimatedCardEnhanced>
+            </StaggerItem>
 
-            <AnimatedCard delay={300} className="group">
-              <AnimatedCardHeader>
-                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
-                  <Code className="h-6 w-6 text-primary" />
-                </div>
-                <AnimatedCardTitle className="text-xl">🎯 TypeScript First</AnimatedCardTitle>
-              </AnimatedCardHeader>
-              <AnimatedCardContent>
-                <AnimatedCardDescription>
-                  Built with TypeScript for complete type safety and excellent developer experience.
-                </AnimatedCardDescription>
-              </AnimatedCardContent>
-            </AnimatedCard>
+            <StaggerItem>
+              <AnimatedCardEnhanced className="group h-full" glowOnHover>
+                <AnimatedCardHeader>
+                  <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
+                    <Code className="h-6 w-6 text-primary" />
+                  </div>
+                  <AnimatedCardTitle className="text-xl">🎯 TypeScript First</AnimatedCardTitle>
+                </AnimatedCardHeader>
+                <AnimatedCardContent>
+                  <AnimatedCardDescription>
+                    Built with TypeScript for complete type safety and excellent developer experience.
+                  </AnimatedCardDescription>
+                </AnimatedCardContent>
+              </AnimatedCardEnhanced>
+            </StaggerItem>
 
-            <AnimatedCard delay={400} className="group">
-              <AnimatedCardHeader>
-                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
-                  <Zap className="h-6 w-6 text-primary" />
-                </div>
-                <AnimatedCardTitle className="text-xl">🚀 Universal Modules</AnimatedCardTitle>
-              </AnimatedCardHeader>
-              <AnimatedCardContent>
-                <AnimatedCardDescription>
-                  Supports ESM, CommonJS, and UMD for maximum compatibility across all environments.
-                </AnimatedCardDescription>
-              </AnimatedCardContent>
-            </AnimatedCard>
+            <StaggerItem>
+              <AnimatedCardEnhanced className="group h-full" glowOnHover>
+                <AnimatedCardHeader>
+                  <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
+                    <Zap className="h-6 w-6 text-primary" />
+                  </div>
+                  <AnimatedCardTitle className="text-xl">🚀 Universal Modules</AnimatedCardTitle>
+                </AnimatedCardHeader>
+                <AnimatedCardContent>
+                  <AnimatedCardDescription>
+                    Supports ESM, CommonJS, and UMD for maximum compatibility across all environments.
+                  </AnimatedCardDescription>
+                </AnimatedCardContent>
+              </AnimatedCardEnhanced>
+            </StaggerItem>
 
-            <AnimatedCard delay={500} className="group">
-              <AnimatedCardHeader>
-                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
-                  <Users className="h-6 w-6 text-primary" />
-                </div>
-                <AnimatedCardTitle className="text-xl">💾 Session Management</AnimatedCardTitle>
-              </AnimatedCardHeader>
-              <AnimatedCardContent>
-                <AnimatedCardDescription>
-                  Intelligent session persistence and automatic token refresh for seamless user experience.
-                </AnimatedCardDescription>
-              </AnimatedCardContent>
-            </AnimatedCard>
-          </div>
+            <StaggerItem>
+              <AnimatedCardEnhanced className="group h-full" glowOnHover>
+                <AnimatedCardHeader>
+                  <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
+                    <Users className="h-6 w-6 text-primary" />
+                  </div>
+                  <AnimatedCardTitle className="text-xl">💾 Session Management</AnimatedCardTitle>
+                </AnimatedCardHeader>
+                <AnimatedCardContent>
+                  <AnimatedCardDescription>
+                    Intelligent session persistence and automatic token refresh for seamless user experience.
+                  </AnimatedCardDescription>
+                </AnimatedCardContent>
+              </AnimatedCardEnhanced>
+            </StaggerItem>
+          </StaggerContainer>
         </div>
       </section>
 
@@ -243,6 +268,6 @@ const apps = await qlik.getAppList();`}
           </div>
         </div>
       </section>
-    </div>
+    </PageTransition>
   );
 }
