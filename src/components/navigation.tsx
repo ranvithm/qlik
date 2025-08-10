@@ -1,59 +1,75 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { useState, useEffect } from "react"
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
-import { ThemeSwitcher } from "@/components/theme-switcher"
-import { Github, Menu, Package, ExternalLink } from "lucide-react"
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { ThemeSwitcher } from "@/components/theme-switcher";
+import { Menu, ExternalLink } from "lucide-react";
+import { FiGithub } from "react-icons/fi";
+import { FaNpm } from "react-icons/fa6";
 
 const navigation = [
   { name: "Home", href: "/" },
   { name: "Documentation", href: "/docs" },
   { name: "API Reference", href: "/api" },
   { name: "Examples", href: "/examples" },
-]
+];
 
 const externalLinks = [
-  { name: "npm Package", href: "https://www.npmjs.com/package/qlik", icon: Package },
-  { name: "GitHub", href: "https://github.com/qlik/qlik-sdk", icon: Github },
-]
+  {
+    name: "npm Package",
+    href: "https://www.npmjs.com/package/qlik",
+    icon: FaNpm,
+  },
+  { name: "GitHub", href: "https://github.com/ranvithm/qlik", icon: FiGithub },
+];
 
 export function Navigation() {
-  const pathname = usePathname()
-  const [isScrolled, setIsScrolled] = useState(false)
+  const pathname = usePathname();
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10)
-    }
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+      setIsScrolled(window.scrollY > 10);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <header className={cn(
-      "sticky top-0 z-50 w-full transition-all duration-300",
-      "border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60",
-      isScrolled && "shadow-sm"
-    )}>
+    <header
+      className={cn(
+        "sticky top-0 z-50 w-full transition-all duration-300",
+        "border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60",
+        isScrolled && "shadow-sm"
+      )}
+    >
       <div className="container flex h-16 max-w-screen-2xl items-center">
         {/* Logo */}
         <div className="mr-4 flex">
-          <Link 
-            className="mr-6 flex items-center space-x-2 group transition-transform hover:scale-105" 
+          <Link
+            className="mr-6 flex items-center space-x-2 group transition-transform hover:scale-105"
             href="/"
           >
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-primary/80 shadow-sm group-hover:shadow-md transition-shadow">
-              <span className="text-sm font-bold text-primary-foreground">Q</span>
+              <span className="text-sm font-bold text-primary-foreground">
+                Q
+              </span>
             </div>
             <span className="font-bold text-foreground group-hover:text-primary transition-colors sm:inline-block">
               Qlik SDK
             </span>
           </Link>
-          
+
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-6 text-sm">
             {navigation.map((item) => (
@@ -63,8 +79,8 @@ export function Navigation() {
                 className={cn(
                   "relative px-3 py-2 rounded-md transition-all duration-200",
                   "hover:text-foreground hover:bg-accent/50",
-                  pathname === item.href 
-                    ? "text-foreground bg-accent font-medium" 
+                  pathname === item.href
+                    ? "text-foreground bg-accent font-medium"
                     : "text-foreground/70"
                 )}
               >
@@ -82,15 +98,15 @@ export function Navigation() {
           <div className="w-full flex-1 md:w-auto md:flex-none">
             {/* Search component placeholder */}
           </div>
-          
+
           {/* Desktop External Links and Theme Switcher */}
           <nav className="hidden md:flex items-center space-x-1">
             <ThemeSwitcher />
             {externalLinks.map((link) => (
-              <Button 
-                key={link.href} 
-                variant="ghost" 
-                size="icon" 
+              <Button
+                key={link.href}
+                variant="ghost"
+                size="icon"
                 asChild
                 className="hover-lift"
               >
@@ -129,8 +145,8 @@ export function Navigation() {
                       className={cn(
                         "flex items-center px-4 py-3 rounded-lg transition-all duration-200",
                         "hover:bg-accent hover:text-accent-foreground",
-                        pathname === item.href 
-                          ? "bg-accent text-accent-foreground font-medium border-l-4 border-primary" 
+                        pathname === item.href
+                          ? "bg-accent text-accent-foreground font-medium border-l-4 border-primary"
                           : "text-muted-foreground hover:text-foreground"
                       )}
                     >
@@ -141,10 +157,14 @@ export function Navigation() {
 
                 {/* Mobile Theme Switcher */}
                 <div className="space-y-2 pt-4 border-t">
-                  <h4 className="px-4 text-sm font-medium text-muted-foreground">Settings</h4>
+                  <h4 className="px-4 text-sm font-medium text-muted-foreground">
+                    Settings
+                  </h4>
                   <div className="px-4 py-2">
                     <div className="flex items-center gap-3">
-                      <span className="text-sm text-muted-foreground">Theme</span>
+                      <span className="text-sm text-muted-foreground">
+                        Theme
+                      </span>
                       <ThemeSwitcher />
                     </div>
                   </div>
@@ -152,7 +172,9 @@ export function Navigation() {
 
                 {/* Mobile External Links */}
                 <div className="space-y-2 pt-4 border-t">
-                  <h4 className="px-4 text-sm font-medium text-muted-foreground">External Links</h4>
+                  <h4 className="px-4 text-sm font-medium text-muted-foreground">
+                    External Links
+                  </h4>
                   {externalLinks.map((link) => (
                     <Link
                       key={link.href}
@@ -173,5 +195,5 @@ export function Navigation() {
         </div>
       </div>
     </header>
-  )
+  );
 }
