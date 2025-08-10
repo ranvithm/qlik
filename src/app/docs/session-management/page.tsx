@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { SectionHeader } from "@/components/ui/section-header"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Clock, RefreshCw, Shield, Activity, Timer } from "lucide-react"
+import { Clock, RefreshCw, Shield, Activity } from "lucide-react"
 
 export const metadata: Metadata = {
   title: "Session Management",

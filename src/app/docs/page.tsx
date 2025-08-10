@@ -101,6 +101,15 @@ export default function DocsPage() {
       </div>
 
       <div className="space-y-4">
+        <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+          <h3 className="font-semibold text-blue-800 mb-2">🌐 Browser-Only Package</h3>
+          <p className="text-blue-700 text-sm">
+            The Qlik TypeScript SDK is designed exclusively for <strong>browser environments</strong>. 
+            It supports Qlik Cloud and Qlik Sense Enterprise with modern module formats (ESM, CommonJS, UMD). 
+            No server-side or Node.js execution.
+          </p>
+        </div>
+
         <h2 className="text-2xl font-bold tracking-tight">Popular Topics</h2>
         <div className="grid gap-4">
           <Link

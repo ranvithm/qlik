@@ -257,7 +257,7 @@ console.log('Tenant ID:', connectionInfo.tenantId);`}
         <div className="grid gap-4">
           <Card className="border-green-200 bg-green-50/50 dark:border-green-800 dark:bg-green-950/50">
             <CardHeader>
-              <CardTitle className="text-green-800 dark:text-green-200">✅ Do's</CardTitle>
+              <CardTitle className="text-green-800 dark:text-green-200">✅ Do&apos;s</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2 text-sm text-green-700 dark:text-green-300">
               <div>• Reuse Qlik instances across your application</div>
@@ -271,14 +271,14 @@ console.log('Tenant ID:', connectionInfo.tenantId);`}
 
           <Card className="border-red-200 bg-red-50/50 dark:border-red-800 dark:bg-red-950/50">
             <CardHeader>
-              <CardTitle className="text-red-800 dark:text-red-200">❌ Don'ts</CardTitle>
+              <CardTitle className="text-red-800 dark:text-red-200">❌ Don&apos;ts</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2 text-sm text-red-700 dark:text-red-300">
-              <div>• Don't create new instances for every operation</div>
-              <div>• Don't ignore authentication failures</div>
-              <div>• Don't hardcode sensitive configuration values</div>
-              <div>• Don't assume the instance is always connected</div>
-              <div>• Don't forget to handle session expiration</div>
+              <div>• Don&apos;t create new instances for every operation</div>
+              <div>• Don&apos;t ignore authentication failures</div>
+              <div>• Don&apos;t hardcode sensitive configuration values</div>
+              <div>• Don&apos;t assume the instance is always connected</div>
+              <div>• Don&apos;t forget to handle session expiration</div>
             </CardContent>
           </Card>
         </div>

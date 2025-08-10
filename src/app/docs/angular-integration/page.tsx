@@ -29,7 +29,7 @@ export default function AngularIntegrationPage() {
         </CardHeader>
         <CardContent className="space-y-4">
           <p className="text-muted-foreground">
-            Angular's powerful dependency injection system and reactive programming model make it ideal for 
+            Angular&apos;s powerful dependency injection system and reactive programming model make it ideal for 
             building complex Qlik analytics applications. This guide covers service creation, component 
             patterns, and reactive data handling with RxJS.
           </p>
@@ -1702,7 +1702,7 @@ export class SalesDashboardComponent implements OnInit, OnDestroy {
           <CardTitle className="text-blue-800 dark:text-blue-200">⚡ Angular + Qlik Best Practices</CardTitle>
         </CardHeader>
         <CardContent className="space-y-3 text-sm text-blue-700 dark:text-blue-300">
-          <div><strong>Dependency Injection:</strong> Use Angular's DI system for clean service architecture</div>
+          <div><strong>Dependency Injection:</strong> Use Angular&apos;s DI system for clean service architecture</div>
           <div><strong>Reactive Patterns:</strong> Leverage RxJS observables for real-time data updates</div>
           <div><strong>Change Detection:</strong> Use OnPush strategy for performance optimization</div>
           <div><strong>Memory Management:</strong> Always unsubscribe using takeUntil pattern</div>

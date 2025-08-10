@@ -70,7 +70,7 @@ export default function VueIntegrationPage() {
                 Reactivity
               </Badge>
               <div className="text-sm text-muted-foreground">
-                Vue's reactive system with Qlik data
+                Vue&apos;s reactive system with Qlik data
               </div>
             </div>
           </div>
@@ -1484,7 +1484,7 @@ watch(currentApp, (newApp) => {
         </CardHeader>
         <CardContent className="space-y-3 text-sm text-green-700 dark:text-green-300">
           <div><strong>Composables:</strong> Use composables for reusable Qlik functionality</div>
-          <div><strong>Reactivity:</strong> Leverage Vue's reactive system for automatic UI updates</div>
+          <div><strong>Reactivity:</strong> Leverage Vue&apos;s reactive system for automatic UI updates</div>
           <div><strong>State Management:</strong> Use Pinia for centralized Qlik state management</div>
           <div><strong>Error Handling:</strong> Implement comprehensive error states in components</div>
           <div><strong>Performance:</strong> Use readonly refs and computed properties for optimization</div>

@@ -26,6 +26,26 @@ export default function DeploymentPage() {
         description="Deploy your Qlik TypeScript SDK applications to production environments with confidence using best practices and proven strategies."
       />
 
+      {/* Browser-Only Notice */}
+      <Card className="border-blue-200 bg-blue-50/50 dark:border-blue-800 dark:bg-blue-950/50">
+        <CardHeader>
+          <CardTitle className="text-blue-800 dark:text-blue-200 flex items-center gap-2">
+            🌐 Browser-Only Deployment
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="text-blue-700 dark:text-blue-300">
+          <p className="mb-3">
+            The Qlik TypeScript SDK is designed exclusively for <strong>browser environments</strong>. 
+            All deployment strategies focus on client-side applications that run in modern browsers.
+          </p>
+          <div className="text-sm space-y-1">
+            <div><strong>✅ Supported:</strong> Static site hosting, CDN deployment, client-side applications</div>
+            <div><strong>✅ Environments:</strong> Qlik Cloud, Qlik Sense Enterprise</div>
+            <div><strong>❌ Not supported:</strong> Node.js server-side execution, server-side rendering</div>
+          </div>
+        </CardContent>
+      </Card>
+
       {/* Overview */}
       <Card>
         <CardHeader>

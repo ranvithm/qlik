@@ -1,7 +1,6 @@
 import type { Metadata } from "next"
 import { CodeBlock } from "@/components/code-block"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import { SectionHeader } from "@/components/ui/section-header"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { FileText, Eye, Database, BarChart3 } from "lucide-react"
