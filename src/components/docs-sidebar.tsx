@@ -39,7 +39,6 @@ const docsNav = [
       { title: "React Integration", href: "/docs/react-integration" },
       { title: "Vue Integration", href: "/docs/vue-integration" },
       { title: "Angular Integration", href: "/docs/angular-integration" },
-      { title: "Node.js Integration", href: "/docs/node-integration" },
     ],
   },
 ]
